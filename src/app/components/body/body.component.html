@@ -5,11 +5,7 @@
             <mat-form-field appearance="fill" class="ancho">
                 <mat-label>Seleccione su nombre</mat-label>
                 <mat-select formControlName="operador">
-                    <mat-option value="Gerardo Palet">Gerardo Palet</mat-option>
-                    <mat-option value="Maximiliano Palet">Maximiliano Palet</mat-option>
-                    <mat-option value="Nicolas Marchi">Nicolas Marchi</mat-option>
-                    <mat-option value="Maximiliano Marchi">Maximiliano Marchi</mat-option>
-
+                  <mat-option *ngFor="let user of users" [value]="user.id">{{user.name}} {{user.surname}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -28,7 +24,6 @@
 
         <div class="input">
             <h2>Cantidad de horas trabajadas</h2>
-
             <mat-form-field appearance="fill" class="ancho">
                 <mat-label>Horas</mat-label>
                 <input matInput type="number" formControlName="horas">
@@ -38,32 +33,21 @@
         <div class="input">
             <h2>Seleccione proyecto</h2>
             <mat-radio-group aria-label="Seleccione una opción" formControlName="proyecto">
-                <mat-radio-button value="ecosistema" class="botonSeleccionProyecto"> Ecosistema </mat-radio-button>
-                <mat-radio-button value="portal" class="botonSeleccionProyecto"> Portal </mat-radio-button>
-                <mat-radio-button value="emergencia" class="botonSeleccionProyecto"> Emergencia </mat-radio-button>
-
-
+              <mat-radio-button *ngFor="let project of projects" [value]="project.id" class="botonSeleccionProyecto"> {{project.name}} </mat-radio-button>
             </mat-radio-group>
         </div>
 
         <div class="input area">
-
             <h2>Descripción</h2>
-
             <mat-form-field appearance="fill" class="ancho alto">
                 <mat-label>Textarea</mat-label>
                 <textarea matInput formControlName="descripcion"></textarea>
             </mat-form-field>
-
         </div>
-
-
-
 
     </div>
     <div class="boton">
-        <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
+        <button (click)=enviarDatos() type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
         <button mat-raised-button color="basic">Cancelar</button>
-
     </div>
 </form>
