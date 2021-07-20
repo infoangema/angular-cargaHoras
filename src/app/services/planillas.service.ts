@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Planilla } from '../interfaces/planilla';
+import { Template } from '../interfaces/template';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlanillasService {
 
-  listPlantilla: Planilla[] = [
-   
-    
-    
+  listPlantilla: Template[] = [
+
   ];
 
   constructor() { }
@@ -22,7 +20,7 @@ export class PlanillasService {
     this.listPlantilla.splice(index, 1);
 
   }
-  agregarUsuario(plantilla: Planilla){
+  agregarUsuario(plantilla: Template){
     this.listPlantilla.unshift(plantilla);
   }
 }

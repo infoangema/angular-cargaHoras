@@ -5,7 +5,7 @@
             <mat-form-field appearance="fill" class="ancho">
                 <mat-label>Seleccione su nombre</mat-label>
                 <mat-select formControlName="operador">
-                  <mat-option *ngFor="let user of users" [value]="user.id">{{user.name}} {{user.surname}}</mat-option>
+                  <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
@@ -33,7 +33,7 @@
         <div class="input">
             <h2>Seleccione proyecto</h2>
             <mat-radio-group aria-label="Seleccione una opción" formControlName="proyecto">
-              <mat-radio-button *ngFor="let project of projects" [value]="project.id" class="botonSeleccionProyecto"> {{project.name}} </mat-radio-button>
+              <mat-radio-button *ngFor="let project of projects" [value]="project" class="botonSeleccionProyecto"> {{project.name}} </mat-radio-button>
             </mat-radio-group>
         </div>
 
@@ -47,7 +47,7 @@
 
     </div>
     <div class="boton">
-        <button (click)=enviarDatos() type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
+        <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
         <button mat-raised-button color="basic">Cancelar</button>
     </div>
 </form>

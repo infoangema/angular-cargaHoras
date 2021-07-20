@@ -5,13 +5,6 @@ import { HomeComponent } from './components/home/home.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
-
-
-
-
-
-
-
 // Rutas
 import { APP_ROUTING } from './app.routes';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,12 +12,8 @@ import { BodyComponent } from './components/body/body.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NoopAnimationsModule, } from '@angular/platform-browser/animations';
 import { SharedModule } from './components/shared/shared.module';
-import { ResultadoComponent } from './components/resultado/resultado.component';
+import { ResultadoComponent } from './components/result/resultado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
-
-
 
 @NgModule({
   declarations: [
@@ -43,11 +32,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-
-
-
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
