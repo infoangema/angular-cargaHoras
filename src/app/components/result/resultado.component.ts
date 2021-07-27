@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { PlanillasService } from '../../services/planillas.service';
+import { TemplateService } from '../../services/template.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from "@angular/common/http";
-import {Template} from "../../interfaces/template";
+import { Record } from "../../interfaces/record";
 
 @Component({
   selector: 'app-resultado',
@@ -15,34 +14,34 @@ import {Template} from "../../interfaces/template";
 
 export class ResultadoComponent implements OnInit {
 
-  listPlantilla: Template[] = [];
-
-  displayedColumns: string[] = ['operador', 'fecha', 'horas', 'proyecto', 'descripcion', 'acciones'];
-  dataSource!: MatTableDataSource <any>;
+  displayedColumns: string[] = ['date', 'hours', 'user', 'project', 'description', 'id'];
+  dataSource: Record[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient, private _plantillaService: PlanillasService, private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private _plantillaService: TemplateService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.cargarPlantilla();
+    this.loadTable();
   }
 
-  cargarPlantilla(){
-    this.listPlantilla = this._plantillaService.getPlantilla();
-    this.dataSource = new MatTableDataSource(this.listPlantilla);
+  loadTable(): void {
+    this.http.get('https://angema-hours-backend.herokuapp.com/records')
+      .subscribe((response: any) => {
+        this.dataSource = response;
+      });
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(event);
   }
 
-  eliminarDato(index: number){
-    console.log(index);
-    this._plantillaService.eliminarDato(index);
-
+  deleteData(index: number){
+    this.http.delete('https://angema-hours-backend.herokuapp.com/records/' + index)
+      .subscribe((response: any) => {
+        console.log(response);
+      });
     this._snackBar.open('Dato eliminado exitosamente', '',{
       duration: 1500,
       horizontalPosition: 'center',

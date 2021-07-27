@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Template } from '../../interfaces/template';
-import { PlanillasService } from '../../services/planillas.service';
+import { TemplateService } from '../../services/template.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -21,7 +21,7 @@ export class BodyComponent implements OnInit {
   users: User[] = [];
   projects: Project[] = [];
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private _plantillaService: PlanillasService, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private _plantillaService: TemplateService, private router: Router, private _snackBar: MatSnackBar) {
     this.form = this.fb.group({
       operador: ['', Validators.required],
       fecha: ['', Validators.required],
