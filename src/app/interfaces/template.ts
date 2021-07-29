@@ -1,5 +1,5 @@
-import {User} from "./user";
-import {Project} from "./project";
+import { User } from "./user";
+import { Project } from "./project";
 
 export interface Template {
     date: string,

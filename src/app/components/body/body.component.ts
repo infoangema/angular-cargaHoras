@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Template } from '../../interfaces/template';
-import { RecordsService } from '../../services/record/records.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -20,8 +19,11 @@ export class BodyComponent implements OnInit {
   form: FormGroup;
   users: User[] = [];
   projects: Project[] = [];
+  URLUSER: string = 'https://angema-hours-backend.herokuapp.com/users';
+  URLPROJECT: string = 'https://angema-hours-backend.herokuapp.com/projects';
+  URLRECORD: string = 'https://angema-hours-backend.herokuapp.com/records';
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private _recordsService: RecordsService, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private _snackBar: MatSnackBar) {
     this.form = this.fb.group({
       operador: ['', Validators.required],
       fecha: ['', Validators.required],
@@ -32,11 +34,11 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get('https://angema-hours-backend.herokuapp.com/users')
+    this.http.get(this.URLUSER)
       .subscribe((response: any) => {
         this.users = response;
       });
-    this.http.get('https://angema-hours-backend.herokuapp.com/projects')
+    this.http.get(this.URLPROJECT)
       .subscribe((response: any) => {
         this.projects = response;
       });
@@ -72,7 +74,7 @@ export class BodyComponent implements OnInit {
       user: template.user,
       project: template.project
     };
-    this.http.post('https://angema-hours-backend.herokuapp.com/records', JSON.stringify(record), {headers: headers})
+    this.http.post(this.URLRECORD, JSON.stringify(record), {headers: headers})
       .subscribe((response: any) => {
         console.log(response);
       });
