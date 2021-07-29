@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Template } from '../../interfaces/template';
-import { TemplateService } from '../../services/template.service';
+import { RecordsService } from '../../services/record/records.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -21,7 +21,7 @@ export class BodyComponent implements OnInit {
   users: User[] = [];
   projects: Project[] = [];
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private _plantillaService: TemplateService, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private _recordsService: RecordsService, private router: Router, private _snackBar: MatSnackBar) {
     this.form = this.fb.group({
       operador: ['', Validators.required],
       fecha: ['', Validators.required],
@@ -42,16 +42,15 @@ export class BodyComponent implements OnInit {
       });
   }
 
-  agregarDato() {
-    const planilla: Template = {
+  newData() {
+    const template: Template = {
       date: this.form.value.fecha,
       hours: this.form.value.horas,
       description: this.form.value.descripcion,
       user: this.form.value.operador,
       project: this.form.value.proyecto
     }
-    this.enviarDatos(planilla);
-    this._plantillaService.agregarUsuario(planilla);
+    this.postData(template);
     this.router.navigate(['/resultado']);
     this._snackBar.open('El dato fue ingresado correctamente', '', {
       duration: 1500,
@@ -60,18 +59,18 @@ export class BodyComponent implements OnInit {
     });
   }
 
-  enviarDatos(plantilla: Template) {
+  postData(template: Template) {
     if (!this.form.valid) {
       return console.log("Formulario Invalido");
     }
-    let today = moment(plantilla.date).format('DD-MM-YYYY');
+    let today = moment(template.date).format('DD-MM-YYYY');
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     const record: Template = {
       date: today,
-      hours: plantilla.hours,
-      description: plantilla.description,
-      user: plantilla.user,
-      project: plantilla.project
+      hours: template.hours,
+      description: template.description,
+      user: template.user,
+      project: template.project
     };
     this.http.post('https://angema-hours-backend.herokuapp.com/records', JSON.stringify(record), {headers: headers})
       .subscribe((response: any) => {

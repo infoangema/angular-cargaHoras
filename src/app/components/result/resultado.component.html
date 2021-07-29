@@ -6,7 +6,7 @@
         <span>Horas registradas</span>
     </mat-toolbar>
 
-    <div class="tabla" *ngIf="dataSource.length > 0">
+    <div class="tabla" *ngIf="listRecord.length > 0">
 
         <mat-form-field appearance="standard">
             <mat-label>¿Qué desea buscar?</mat-label>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <h2 *ngIf="dataSource.length == 0" class="cartelSinDatos">No hay datos cargados</h2>
+    <h2 *ngIf="listRecord.length == 0" class="cartelSinDatos">No hay datos cargados</h2>
 </div>
 
 <app-footer></app-footer>
