@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "dev": "parcel src/index.html",
     "start": "node server.js",
-    "build": "ng build",
+    "build": "parcel build src/index.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "postinstall": "ng build --aot --prod",
