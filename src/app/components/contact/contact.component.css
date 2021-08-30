@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  min-height: 80%;
+}
+
+.rounding {
+  border-radius: 25px 25px 0 0;
+}
+
+.filter {
+  text-align: center;
+}
+.icon {
+  color: #bd5aff;
+  cursor: pointer;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.nullData {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+.description {
+  width: 50%;
+  padding-right: 10px;
+}
+
+.textDescription {
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+}
+
+.delete {
+  text-align: center !important;
+}
+
+.spinner {
+  text-align: center !important;
+  position: absolute;
+  margin: auto;
+  top: 40%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}

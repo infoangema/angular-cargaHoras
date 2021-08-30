@@ -1,5 +1,73 @@
-<div class="container">
-    <app-header></app-header>
-    <app-body></app-body>
+<div class="spinner">
+  <sa-spinner-circular *ngIf="loadingProject && loadingUser" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>
 </div>
-<app-footer></app-footer>
+
+<div *ngIf="!loadingProject && !loadingUser">
+  <div class="container">
+
+    <app-header></app-header>
+
+    <div class="conteiner" *ngIf="users.length != 0 && projects.length != 0">
+      <div class="tabla">
+        <form [formGroup]="form" (ngSubmit)="newData()">
+            <div class="input">
+              <h2>Operador</h2>
+              <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
+                <mat-label>Seleccione su nombre</mat-label>
+                <mat-select formControlName="operador">
+                  <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="input">
+              <h2>Seleccione fecha trabajada</h2>
+              <mat-form-field appearance="fill" class="width">
+                <mat-label>Choose a date</mat-label>
+                <!-- #docregion toggle -->
+                <input matInput [matDatepicker]="picker" formControlName="fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <!-- #enddocregion toggle -->
+              </mat-form-field>
+            </div>
+
+            <div class="input">
+              <h2>Cantidad de horas trabajadas</h2>
+              <mat-form-field appearance="fill" class="width">
+                <mat-label>Horas</mat-label>
+                <input matInput type="number" formControlName="horas">
+              </mat-form-field>
+            </div>
+
+            <div class="input">
+              <h2>Seleccione proyecto</h2>
+              <mat-radio-group *ngIf="!loadingUser" aria-label="Seleccione una opción" formControlName="proyecto">
+                <mat-radio-button *ngFor="let project of projects" [value]="project" class="buttonSelectionProject"> {{project.name}} </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div class="input area">
+              <h2>Descripción</h2>
+              <mat-form-field appearance="fill" class="width alto">
+                <mat-label>Textarea</mat-label>
+                <textarea matInput formControlName="descripcion"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="button">
+              <button type="submit" [disabled]="form.invalid" mat-raised-button color="primary">Aceptar</button>
+              <button mat-raised-button color="basic">Cancelar</button>
+            </div>
+        </form>
+      </div>
+    </div>
+
+    <h2 *ngIf="users.length == 0 && projects.length == 0" class="nullData">No hay datos cargados.</h2>
+    <h2 *ngIf="users.length != 0 && projects.length == 0" class="nullData">No hay proyectos cargados.</h2>
+    <h2 *ngIf="users.length == 0 && projects.length != 0" class="nullData">No hay operadores cargados.</h2>
+
+  </div>
+
+  <app-footer></app-footer>
+
+</div>

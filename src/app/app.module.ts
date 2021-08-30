@@ -8,21 +8,22 @@ import { HttpClientModule } from '@angular/common/http';
 // Rutas
 import { APP_ROUTING } from './app.routes';
 import { FooterComponent } from './components/footer/footer.component';
-import { BodyComponent } from './components/body/body.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NoopAnimationsModule, } from '@angular/platform-browser/animations';
 import { SharedModule } from './components/shared/shared.module';
-import { ResultadoComponent } from './components/result/resultado.component';
+import { ResultComponent } from './components/result/result.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ContactComponent } from './components/contact/contact.component';
+import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FooterComponent,
-    BodyComponent,
     HeaderComponent,
-    ResultadoComponent
+    ResultComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    SpinnerCircularModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

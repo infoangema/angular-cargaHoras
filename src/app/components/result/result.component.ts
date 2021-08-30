@@ -5,36 +5,49 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from "@angular/common/http";
 import { Record } from "../../interfaces/record";
 import { MatTableDataSource } from "@angular/material/table";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { RecordService } from "../../services/record.service";
 
 @Component({
   selector: 'app-resultado',
-  templateUrl: './resultado.component.html',
-  styleUrls: ['./resultado.component.css']
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.css']
 })
 
-export class ResultadoComponent implements OnInit {
+export class ResultComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'hours', 'user', 'project', 'description', 'id'];
   listRecord: Record[] = [];
+  form: FormGroup;
+  loadingRecord: boolean;
   dataSource!: MatTableDataSource <any>;
-  URLRECORD: string = 'https://angema-hours-backend.herokuapp.com/records';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar, private fb: FormBuilder, private recordService: RecordService) {
+    this.form = this.fb.group({
+      operador: null,
+      proyecto: null
+    });
+    this.loadingRecord = true;
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loadTable();
   }
 
   loadTable(): void {
-    this.http.get(this.URLRECORD)
+    this.http.get(this.recordService.getURL())
       .subscribe((response: any) => {
         this.listRecord = response;
+        for(let i=0;i<this.listRecord.length;i++) {
+          this.listRecord[i].visible = true;
+        }
         this.dataSource = new MatTableDataSource(this.listRecord);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.loadingRecord = false;
       });
   }
 
@@ -44,7 +57,7 @@ export class ResultadoComponent implements OnInit {
   }
 
   deleteData(index: number) {
-    this.http.delete(this.URLRECORD + '/' + index)
+    this.http.delete(this.recordService.getURL() + '/' + index)
       .subscribe((response: any) => {
         console.log(response);
         this.loadTable();

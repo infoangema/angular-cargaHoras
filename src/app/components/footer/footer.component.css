@@ -6,12 +6,26 @@
     background-color: #323232;
 }
 
+.logoFooter{
+  display: grid;
+  grid-gap:20px;
+  grid-auto-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  max-width: 20%;
+
+}
+
+sizeLogoFooter{
+  max-width: 20%;
+}
+
 .footer {
     width: 100vw;
     background-color: #323232;
+    padding-top: 20px;
 }
 
-.footerEstilo {
+.styleFooter {
     list-style: none;
     font-size: 1.3rem;
     text-align: left;
@@ -20,22 +34,29 @@
     width: 100%;
 }
 
-.footerEstilo a {
+.styleFooter a {
     color: white;
     text-decoration: none;
 }
 
-.footerTitulo {
+.titleFooter {
     color: rgba(255, 255, 255, 0.3);
     font-size: 1.6rem;
 }
 
-.footerHr {
+.hrFooter {
     border-top: 1px solid rgb(255, 255, 255) !important;
 }
 
-.footerLista a {
+.ListFooter a {
     position: relative;
     float: left;
     color: #bd5aff;
+}
+
+.logoAngema {
+  color: white;
+  display: block;
+  text-align: center;
+  align-items: center;
 }

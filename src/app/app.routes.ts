@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ResultadoComponent } from './components/result/resultado.component';
+import { ResultComponent } from './components/result/result.component';
+import { ContactComponent } from "./components/contact/contact.component";
 
 const APP_ROUTES: Routes = [
 
 { path: 'home', component: HomeComponent },
-{ path: 'resultado', component: ResultadoComponent},
+{ path: 'contacto', component: ContactComponent},
+{ path: 'resultado', component: ResultComponent},
 
 { path: '**', pathMatch: 'full', redirectTo: 'home'},
 
