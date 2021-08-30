@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ContactService {
 
-  URLCONTACT: string = 'https://hours-backend-pruebas.herokuapp.com/contacts';
+  URLCONTACT: string = 'https://angema-hours-backend.herokuapp.com/contacts';
 
   constructor() { }
 

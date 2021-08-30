@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ProjectService {
 
-  URLPROJECT: string = 'https://hours-backend-pruebas.herokuapp.com/projects';
+  URLPROJECT: string = 'https://angema-hours-backend.herokuapp.com/projects';
 
   constructor() { }
 

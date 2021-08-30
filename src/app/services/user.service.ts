@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class UserService {
 
-  URLUSER: string = 'https://hours-backend-pruebas.herokuapp.com/users';
+  URLUSER: string = 'https://angema-hours-backend.herokuapp.com/users';
 
   constructor() { }
 
