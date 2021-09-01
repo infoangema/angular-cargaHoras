@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { User } from "../../interfaces/user";
 import { Project } from "../../interfaces/project";
 import { Record } from "../../interfaces/record";
@@ -25,7 +24,7 @@ export class HomeComponent implements OnInit {
   loadingUser: boolean;
   loadingProject: boolean;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, private _snackBar: MatSnackBar,
+  constructor(private fb: FormBuilder, private router: Router, private _snackBar: MatSnackBar,
               private userService: UserService, private projectService: ProjectService, private recordService: RecordService) {
     this.form = this.fb.group({
       operador: ['', Validators.required],
@@ -39,16 +38,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(this.userService.getURL())
-      .subscribe((response: any) => {
-        this.users = response;
-        this.loadingUser = false;
-      });
-    this.http.get(this.projectService.getURL())
-      .subscribe((response: any) => {
-        this.projects = response;
-        this.loadingProject = false;
-      });
+    this.userService.getUsers().subscribe(response => {
+      this.users = response;
+      this.loadingUser = false;
+    });
+    this.projectService.getProject().subscribe(response => {
+      this.projects = response;
+      this.loadingProject = false;
+    });
   }
 
   newData() {
@@ -67,7 +64,6 @@ export class HomeComponent implements OnInit {
       return console.log("Formulario Invalido");
     }
     let today = moment(template.date).format('DD-MM-YYYY');
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
     const record: Record = {
       date: today,
       hours: template.hours,
@@ -75,15 +71,14 @@ export class HomeComponent implements OnInit {
       user: template.user,
       project: template.project
     };
-    this.http.post(this.recordService.getURL(), JSON.stringify(record), {headers: headers})
-      .subscribe((response: any) => {
-        console.log(response);
-        this.router.navigate(['/resultado']);
-        this._snackBar.open('El dato fue ingresado correctamente', '', {
-          duration: 1500,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        });
+    this.recordService.postRecord(record).subscribe(response => {
+      console.log(response);
+      this.router.navigate(['/resultado']);
+      this._snackBar.open('El dato fue ingresado correctamente', '', {
+        duration: 1500,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
       });
+    });
   }
 }

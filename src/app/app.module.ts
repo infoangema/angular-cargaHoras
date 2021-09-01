@@ -15,6 +15,10 @@ import { ResultComponent } from './components/result/result.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './components/contact/contact.component';
 import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatButtonModule } from "@angular/material/button";
+import { ModalComponent } from "./components/modal/modal.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +27,8 @@ import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
     FooterComponent,
     HeaderComponent,
     ResultComponent,
-    ContactComponent
+    ContactComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +39,11 @@ import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
     FormsModule,
     ReactiveFormsModule,
     SpinnerCircularModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
+  entryComponents: [ModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

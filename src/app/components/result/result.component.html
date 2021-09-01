@@ -12,7 +12,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese su consulta" autocomplete="off" #input>
       </mat-form-field>
 
-      <div class="tabla" *ngIf="listRecord.length > 0">
+      <div class="table" *ngIf="listRecord.length > 0">
         <mat-toolbar class="rounding">
           <span>Registros de Horas</span>
         </mat-toolbar>
@@ -40,7 +40,7 @@
 
                     <ng-container matColumnDef="description">
                         <th mat-header-cell *matHeaderCellDef> Descripción </th>
-                      <td mat-cell class="description" *matCellDef="let element"> <p class="textDescription">{{element.description}}</p> </td>
+                      <td mat-cell class="description" *matCellDef="let element"> {{element.description}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="id">

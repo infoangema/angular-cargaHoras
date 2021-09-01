@@ -35,9 +35,6 @@ table {
 .description {
   width: 50%;
   padding-right: 10px;
-}
-
-.textDescription {
   word-wrap: break-word !important;
   word-break: break-word !important;
 }
@@ -49,5 +46,4 @@ table {
   top: 40%;
   left: 0;
   right: 0;
-  bottom: 0;
 }

@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from "rxjs";
+import { Record } from "../interfaces/record";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
 
-  URLRECORD: string = 'https://angema-hours-backend.herokuapp.com/records';
+  private URLRECORD: string = 'https://hours-backend-pruebas.herokuapp.com/records';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getURL(): string {
-    return this.URLRECORD;
+  getRecods(): Observable<any> {
+    return this.http.get(this.URLRECORD);
+  }
+
+  postRecord(record: Record): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(this.URLRECORD, JSON.stringify(record), {headers: headers});
+  }
+
+  deleteRecord(index: number): Observable<any> {
+    return this.http.delete(this.URLRECORD + '/' + index);
   }
 }

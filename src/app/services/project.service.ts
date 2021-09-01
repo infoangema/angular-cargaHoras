@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  URLPROJECT: string = 'https://angema-hours-backend.herokuapp.com/projects';
+  private URLPROJECT: string = 'https://hours-backend-pruebas.herokuapp.com/projects';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getURL(): string {
-    return this.URLPROJECT;
+  getProject(): Observable<any> {
+    return this.http.get(this.URLPROJECT);
   }
 }
