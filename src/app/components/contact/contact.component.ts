@@ -47,7 +47,11 @@ export class ContactComponent implements OnInit {
   }
 
   updateViewed(data: Contact) {
-    data.viewed = true;
+    if (data.viewed == true) {
+      data.viewed = false;
+    } else {
+      data.viewed = true;
+    }
     this.contactService.updateViewed(data).subscribe(response => {
       console.log(response);
       this.loadTable();

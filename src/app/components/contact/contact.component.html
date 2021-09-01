@@ -52,7 +52,7 @@
               <a *ngIf="!element.viewed" class="icon" (click)="updateViewed(element)" matTooltip="No Visto">
                 <mat-icon>visibility</mat-icon>
               </a>
-              <a *ngIf="element.viewed" class="icon" matTooltip="Visto">
+              <a *ngIf="element.viewed" class="icon" (click)="updateViewed(element)" matTooltip="Visto">
                 <mat-icon>done</mat-icon>
               </a>
             </td>
@@ -71,7 +71,7 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [length]="50" [pageSize]="50" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
       </div>
     </div>

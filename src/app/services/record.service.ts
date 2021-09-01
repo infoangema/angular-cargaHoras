@@ -8,7 +8,7 @@ import { Record } from "../interfaces/record";
 })
 export class RecordService {
 
-  private URLRECORD: string = 'https://angema-hours-backend.herokuapp.com/records';
+  private URLRECORD: string = 'https://hours-backend-pruebas.herokuapp.com/records';
 
   constructor(private http: HttpClient) { }
 
