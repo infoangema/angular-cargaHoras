@@ -6,7 +6,7 @@ import { Record } from "../../interfaces/record";
 import { MatTableDataSource } from "@angular/material/table";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { RecordService } from "../../services/record.service";
-import { ModalComponent } from "../modal/modal.component";
+import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
 
 @Component({
@@ -18,6 +18,7 @@ import { MatDialog } from "@angular/material/dialog";
 export class ResultComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'hours', 'user', 'project', 'description', 'id'];
+  optionFilterColumns: string[] = ['Fecha', 'Hora', 'Operador', 'Proyecto', 'Descripcion'];
   listRecord: Record[] = [];
   form: FormGroup;
   loadingRecord: boolean;
@@ -44,6 +45,7 @@ export class ResultComponent implements OnInit {
       for(let i=0;i<this.listRecord.length;i++) {
         this.listRecord[i].visible = true;
       }
+      this.listRecord.reverse();
       this.dataSource = new MatTableDataSource(this.listRecord);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -57,7 +59,7 @@ export class ResultComponent implements OnInit {
   }
 
   deleteData(index: number) {
-    const dialogRef = this.dialog.open(ModalComponent, {data: this.stringDataArray(this.listRecord.find(element => element.id == index)!)});
+    const dialogRef = this.dialog.open(ModalDeleteComponent, {data: this.stringDataArray(this.listRecord.find(element => element.id == index)!)});
     dialogRef.afterClosed().subscribe(response => {
       if(response) {
         this.recordService.deleteRecord(index).subscribe(response => {

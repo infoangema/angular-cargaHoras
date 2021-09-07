@@ -7,12 +7,16 @@ table {
     min-height: 80%;
 }
 
+.containerInternal {
+  padding-top: 25px;
+}
+
 .rounding {
     border-radius: 25px 25px 0 0;
 }
 
 .filter {
-  text-align: center;
+    text-align: center;
 }
 .icon {
     color: #bd5aff;
@@ -37,6 +41,10 @@ table {
   padding-right: 10px;
   word-wrap: break-word !important;
   word-break: break-word !important;
+}
+
+.tamFilterOption {
+  width: 20%;
 }
 
 .spinner {

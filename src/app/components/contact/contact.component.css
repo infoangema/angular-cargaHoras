@@ -7,6 +7,10 @@ table {
   min-height: 80%;
 }
 
+.containerInternal {
+  padding-top: 25px;
+}
+
 .rounding {
   border-radius: 25px 25px 0 0;
 }
@@ -44,6 +48,10 @@ table {
 
 .viewed {
   text-align: center !important;
+}
+
+.tamFilterOption {
+  width: 20%;
 }
 
 .spinner {

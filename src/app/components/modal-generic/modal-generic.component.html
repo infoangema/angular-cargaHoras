@@ -1,0 +1,7 @@
+<div class="conteiner">
+  <div class="text" mat-dialog-content>{{this.message}}</div>
+  <div mat-dialog-actions>
+    <button class="buttonAccept" mat-button [mat-dialog-close]="true">Aceptar</button>
+    <button class="buttonCancel" mat-button (click)="onClose()">Cancelar</button>
+  </div>
+</div>

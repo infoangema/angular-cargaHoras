@@ -7,10 +7,26 @@
 
     <app-header></app-header>
 
-    <mat-form-field appearance="standard">
-      <mat-label>¿Qué desea buscar?</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese su consulta" autocomplete="off" #input>
-    </mat-form-field>
+    <div class="containerInternal">
+      <table>
+        <tr>
+          <td class="tamFilterOption">
+            <mat-form-field appearance="fill">
+              <mat-label>Filtrar por:</mat-label>
+              <mat-select [disabled]="true">
+                <mat-option *ngFor="let option of optionFilterColumns" [value]="option">{{option.valueOf()}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>¿Qué desea buscar?</mat-label>
+              <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese su consulta" autocomplete="off" #input>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+    </div>
 
     <div class="table" *ngIf="listRecord.length > 0">
 

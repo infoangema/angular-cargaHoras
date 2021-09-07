@@ -9,6 +9,8 @@ import * as moment from 'moment';
 import { UserService } from "../../services/user.service";
 import { ProjectService } from "../../services/project.service";
 import { RecordService } from "../../services/record.service";
+import { MatDialog } from "@angular/material/dialog";
+import { ModalGenericComponent } from "../modal-generic/modal-generic.component";
 
 @Component({
   selector: 'app-home',
@@ -24,14 +26,14 @@ export class HomeComponent implements OnInit {
   loadingUser: boolean;
   loadingProject: boolean;
 
-  constructor(private fb: FormBuilder, private router: Router, private _snackBar: MatSnackBar,
+  constructor(public dialog: MatDialog, private fb: FormBuilder, private router: Router, private _snackBar: MatSnackBar,
               private userService: UserService, private projectService: ProjectService, private recordService: RecordService) {
     this.form = this.fb.group({
-      operador: ['', Validators.required],
-      fecha: ['', Validators.required],
-      horas: ['', Validators.required],
-      proyecto: ['', Validators.required],
-      descripcion: [''],
+      operador: [''],
+      fecha: [''],
+      horas: [''],
+      proyecto: [''],
+      descripcion: ['']
     });
     this.loadingUser = true;
     this.loadingProject = true;
@@ -46,6 +48,10 @@ export class HomeComponent implements OnInit {
       this.projects = response;
       this.loadingProject = false;
     });
+  }
+
+  disabledButton(form: FormGroup): boolean {
+    return (form.value.operador.length != '' && form.value.fecha != '' && form.value.horas != '' && form.value.proyecto != '');
   }
 
   newData() {
@@ -73,7 +79,19 @@ export class HomeComponent implements OnInit {
     };
     this.recordService.postRecord(record).subscribe(response => {
       console.log(response);
-      this.router.navigate(['/resultado']);
+      const dialogRef = this.dialog.open(ModalGenericComponent, {data: "¿Deseas seguir cargando registros?"});
+      dialogRef.afterClosed().subscribe(response => {
+          if (!response) {
+            this.router.navigate(['/resultado']);
+          }
+        this.form = this.fb.group({
+          operador: [''],
+          fecha: [''],
+          horas: [''],
+          proyecto: [''],
+          descripcion: ['']
+        });
+      });
       this._snackBar.open('El dato fue ingresado correctamente', '', {
         duration: 1500,
         horizontalPosition: 'center',

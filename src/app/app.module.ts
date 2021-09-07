@@ -18,7 +18,8 @@ import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
-import { ModalComponent } from "./components/modal/modal.component";
+import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
+import { ModalGenericComponent } from './components/modal-generic/modal-generic.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ModalComponent } from "./components/modal/modal.component";
     HeaderComponent,
     ResultComponent,
     ContactComponent,
-    ModalComponent
+    ModalDeleteComponent,
+    ModalGenericComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,7 @@ import { ModalComponent } from "./components/modal/modal.component";
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [ModalComponent],
+  entryComponents: [ModalDeleteComponent, ModalGenericComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

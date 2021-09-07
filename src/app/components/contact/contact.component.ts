@@ -6,7 +6,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ContactService } from "../../services/contact.service";
 import { MatDialog } from "@angular/material/dialog";
-import { ModalComponent } from "../modal/modal.component";
+import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 
 @Component({
   selector: 'app-contact',
@@ -16,6 +16,7 @@ import { ModalComponent } from "../modal/modal.component";
 export class ContactComponent implements OnInit {
 
   displayedColumns: string[] = ['name', 'company', 'mail', 'phone', 'description', 'viewed', 'id'];
+  optionFilterColumns: string[] = ['Nombre', 'Empresa', 'Mail', 'Telefono', 'Descripcion'];
   dataSource!: MatTableDataSource <any>;
   listRecord: Contact[] = [];
   loading: boolean;
@@ -59,7 +60,7 @@ export class ContactComponent implements OnInit {
   }
 
   deleteData(index: number) {
-    const dialogRef = this.dialog.open(ModalComponent, {data: this.stringDataArray(this.listRecord.find(element => element.id == index)!)});
+    const dialogRef = this.dialog.open(ModalDeleteComponent, {data: this.stringDataArray(this.listRecord.find(element => element.id == index)!)});
     dialogRef.afterClosed().subscribe(response => {
       if(response) {
         this.contactService.deleteContact(index).subscribe(response => {
