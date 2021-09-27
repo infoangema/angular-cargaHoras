@@ -8,6 +8,10 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { RecordService } from "../../services/record.service";
 import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
+import { UserService } from "../../services/user.service";
+import { ProjectService } from "../../services/project.service";
+import {User} from "../../interfaces/user";
+import {Project} from "../../interfaces/project";
 
 @Component({
   selector: 'app-resultado',
@@ -18,21 +22,29 @@ import { MatDialog } from "@angular/material/dialog";
 export class ResultComponent implements OnInit {
 
   displayedColumns: string[] = ['date', 'hours', 'user', 'project', 'description', 'id'];
-  optionFilterColumns: string[] = ['Fecha', 'Hora', 'Operador', 'Proyecto', 'Descripcion'];
   listRecord: Record[] = [];
+  users: User[] = [];
+  projects: Project[] = [];
   form: FormGroup;
-  loadingRecord: boolean;
   dataSource!: MatTableDataSource <any>;
+  loadingUser: boolean;
+  loadingProject: boolean;
+  loadingRecord: boolean;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, private fb: FormBuilder, private recordService: RecordService) {
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, private fb: FormBuilder, private recordService: RecordService,
+              private userService: UserService, private projectService: ProjectService) {
     this.form = this.fb.group({
+      fechaDesde: null,
+      fechaHasta: null,
       operador: null,
       proyecto: null
     });
     this.loadingRecord = true;
+    this.loadingUser = true;
+    this.loadingProject = true;
   }
 
   ngOnInit() {
@@ -40,6 +52,14 @@ export class ResultComponent implements OnInit {
   }
 
   loadTable(): void {
+    this.userService.getUsers().subscribe(response => {
+      this.users = response;
+      this.loadingUser = false;
+    });
+    this.projectService.getProject().subscribe(response => {
+      this.projects = response;
+      this.loadingProject = false;
+    });
     this.recordService.getRecods().subscribe(response => {
       this.listRecord = response;
       for(let i=0;i<this.listRecord.length;i++) {
@@ -51,11 +71,6 @@ export class ResultComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.loadingRecord = false;
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   deleteData(index: number) {
@@ -87,5 +102,19 @@ export class ResultComponent implements OnInit {
     }
     dataString.push("Null");
     return dataString;
+  }
+
+  filter() {
+    this.recordService.filter(this.form).subscribe(response => {
+      this.listRecord = response;
+      for(let i=0;i<this.listRecord.length;i++) {
+        this.listRecord[i].visible = true;
+      }
+      this.listRecord.reverse();
+      this.dataSource = new MatTableDataSource(this.listRecord);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.loadingRecord = false;
+    });
   }
 }

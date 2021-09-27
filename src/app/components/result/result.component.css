@@ -7,10 +7,6 @@ table {
     min-height: 80%;
 }
 
-.containerInternal {
-  padding-top: 25px;
-}
-
 .rounding {
     border-radius: 25px 25px 0 0;
 }
@@ -43,8 +39,16 @@ table {
   word-break: break-word !important;
 }
 
-.tamFilterOption {
-  width: 20%;
+.containerInternal {
+  padding-top: 25px;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-gap: 20px;
+  padding: 10px;
 }
 
 .spinner {

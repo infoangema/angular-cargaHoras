@@ -1,31 +1,56 @@
 <div class="spinner">
-  <sa-spinner-circular *ngIf="loadingRecord" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>
+  <sa-spinner-circular *ngIf="loadingRecord && loadingProject && loadingUser" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>
 </div>
 
-<div *ngIf="!loadingRecord">
+<div *ngIf="!loadingRecord && !loadingProject && !loadingUser">
   <div class="container">
 
       <app-header></app-header>
 
       <div class="containerInternal">
-        <table>
-          <tr>
-            <td class="tamFilterOption">
-              <mat-form-field appearance="fill">
-                <mat-label>Filtrar por:</mat-label>
-                <mat-select [disabled]="true">
-                  <mat-option *ngFor="let option of optionFilterColumns" [value]="option">{{option.valueOf()}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-            <td>
-              <mat-form-field appearance="fill">
-              <mat-label>¿Qué desea buscar?</mat-label>
-              <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese su consulta" autocomplete="off" #input>
-              </mat-form-field>
-            </td>
-          </tr>
-        </table>
+        <form [formGroup]="form" (ngSubmit)="filter()">
+          <table>
+            <tr>
+              <td>
+                <mat-form-field appearance="fill">
+                  <mat-label>Fecha Desde</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaDesde">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="fill">
+                  <mat-label>Fecha Hasta</mat-label>
+                  <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="fill">
+                  <mat-label>Filtrar por Operador</mat-label>
+                  <mat-select formControlName="operador">
+                    <mat-option [value]=null>Ninguno</mat-option>
+                    <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field appearance="fill">
+                  <mat-label>Filtrar por Proyecto</mat-label>
+                  <mat-select formControlName="proyecto">
+                    <mat-option [value]=null>Ninguno</mat-option>
+                    <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <div class="button">
+            <button type="submit" mat-raised-button color="primary">Filtrar</button>
+          </div>
+        </form>
       </div>
 
       <div class="table" *ngIf="listRecord.length > 0">
