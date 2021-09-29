@@ -11,7 +11,7 @@ import { DateAdapter } from "@angular/material/core";
 })
 export class RecordService {
 
-  private URLRECORD: string = 'https://angema-hours-backend.herokuapp.com/records';
+  private URLRECORD: string = 'https://angema-hours-back.herokuapp.com/records';
 
   constructor(private http: HttpClient, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');

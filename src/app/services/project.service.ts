@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ProjectService {
 
-  private URLPROJECT: string = 'https://angema-hours-backend.herokuapp.com/projects';
+  private URLPROJECT: string = 'https://angema-hours-back.herokuapp.com/projects';
 
   constructor(private http: HttpClient) { }
 
