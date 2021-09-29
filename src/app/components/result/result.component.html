@@ -7,53 +7,53 @@
 
       <app-header></app-header>
 
-      <div class="containerInternal">
-        <form [formGroup]="form" (ngSubmit)="filter()">
-          <table>
-            <tr>
-              <td>
-                <mat-form-field appearance="fill">
-                  <mat-label>Fecha Desde</mat-label>
-                  <input matInput [matDatepicker]="picker" formControlName="fechaDesde">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field appearance="fill">
-                  <mat-label>Fecha Hasta</mat-label>
-                  <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
-                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                  <mat-datepicker #picker2></mat-datepicker>
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field appearance="fill">
-                  <mat-label>Filtrar por Operador</mat-label>
-                  <mat-select formControlName="operador">
-                    <mat-option [value]=null>Ninguno</mat-option>
-                    <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-              <td>
-                <mat-form-field appearance="fill">
-                  <mat-label>Filtrar por Proyecto</mat-label>
-                  <mat-select formControlName="proyecto">
-                    <mat-option [value]=null>Ninguno</mat-option>
-                    <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </td>
-            </tr>
-          </table>
-          <div class="button">
-            <button type="submit" mat-raised-button color="primary">Filtrar</button>
-          </div>
-        </form>
-      </div>
-
       <div class="table" *ngIf="listRecord.length > 0">
+        <div class="containerInternal">
+          <form [formGroup]="form" (ngSubmit)="filter()">
+            <table>
+              <tr>
+                <td>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Fecha Desde</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaDesde">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Fecha Hasta</mat-label>
+                    <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Filtrar por Operador</mat-label>
+                    <mat-select formControlName="operador">
+                      <mat-option [value]=null>Ninguno</mat-option>
+                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Filtrar por Proyecto</mat-label>
+                    <mat-select formControlName="proyecto">
+                      <mat-option [value]=null>Ninguno</mat-option>
+                      <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+              </tr>
+            </table>
+            <div class="button">
+              <button type="submit" mat-raised-button color="primary">Filtrar</button>
+            </div>
+          </form>
+        </div>
+
         <mat-toolbar class="rounding">
           <span>Registros de Horas</span>
         </mat-toolbar>

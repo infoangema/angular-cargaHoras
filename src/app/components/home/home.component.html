@@ -10,54 +10,68 @@
     <div class="conteiner" *ngIf="users.length != 0 && projects.length != 0">
       <div class="tabla">
         <form [formGroup]="form" (ngSubmit)="newData()">
-            <div class="input">
-              <h2>Operador</h2>
-              <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
-                <mat-label>Seleccione su nombre</mat-label>
-                <mat-select formControlName="operador">
-                  <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
+          <table class="input">
+            <tr>
+              <td class="inputTable">
+                <div>
+                  <h2>Operario</h2>
+                  <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
+                    <mat-label>Seleccione su nombre</mat-label>
+                    <mat-select formControlName="operador">
+                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+              <td class="inputTable">
+                <div>
+                  <h2>Fecha</h2>
+                  <mat-form-field appearance="fill" class="width">
+                    <mat-label>Seleccione fecha trabajada</mat-label>
+                    <!-- #docregion toggle -->
+                    <input matInput [matDatepicker]="picker" formControlName="fecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <!-- #enddocregion toggle -->
+                  </mat-form-field>
+                </div>
+              </td>
+            </tr>
 
-            <div class="input">
-              <h2>Seleccione fecha trabajada</h2>
-              <mat-form-field appearance="fill" class="width">
-                <mat-label>Choose a date</mat-label>
-                <!-- #docregion toggle -->
-                <input matInput [matDatepicker]="picker" formControlName="fecha">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <!-- #enddocregion toggle -->
-              </mat-form-field>
-            </div>
-
-            <div class="input">
-              <h2>Cantidad de horas trabajadas</h2>
-              <mat-form-field appearance="fill" class="width">
-                <mat-label>Horas</mat-label>
-                <input matInput type="number" formControlName="horas">
-              </mat-form-field>
-            </div>
-
-            <div class="input">
-              <h2>Seleccione proyecto</h2>
-              <mat-radio-group *ngIf="!loadingUser" aria-label="Seleccione una opción" formControlName="proyecto">
-                <mat-radio-button *ngFor="let project of projects" [value]="project" class="buttonSelectionProject"> {{project.name}} </mat-radio-button>
-              </mat-radio-group>
-            </div>
-
-            <div class="input area">
-              <h2>Descripción</h2>
-              <mat-form-field appearance="fill" class="width alto">
-                <mat-label>Textarea</mat-label>
-                <textarea matInput formControlName="descripcion"></textarea>
-              </mat-form-field>
-            </div>
-            <div class="button">
-              <button type="submit" [disabled]="!disabledButton(form)" mat-raised-button color="primary">Aceptar</button>
-              <button mat-raised-button color="basic">Cancelar</button>
-            </div>
+            <tr>
+              <td class="inputTable">
+                <div>
+                  <h2>Horas</h2>
+                  <mat-form-field appearance="fill" class="width">
+                    <mat-label>Cantidad de horas trabajadas</mat-label>
+                    <input matInput type="number" formControlName="horas">
+                  </mat-form-field>
+                </div>
+              </td>
+              <td class="inputTable">
+                <div>
+                  <h2>Proyecto</h2>
+                  <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
+                    <mat-label>Seleccione proyecto trabajado</mat-label>
+                    <mat-select formControlName="proyecto">
+                      <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div>
+            <h2>Descripción (Opcional)</h2>
+            <mat-form-field appearance="fill" class="width">
+              <mat-label>Ingrese una descripcion de la tarea realizada</mat-label>
+              <textarea matInput formControlName="descripcion" class="widthDescription" maxlength="250"></textarea>
+            </mat-form-field>
+          </div>
+          <div class="button">
+            <button type="submit" [disabled]="!disabledButton(form)" mat-raised-button color="primary">Aceptar</button>
+            <button mat-raised-button color="basic">Cancelar</button>
+          </div>
         </form>
       </div>
     </div>
