@@ -7,11 +7,9 @@
 
       <app-header></app-header>
 
-      <div class="table" *ngIf="listRecord.length > 0">
         <div class="containerInternal">
           <form [formGroup]="form" (ngSubmit)="filter()">
             <table>
-              <tr>
                 <td>
                   <mat-form-field appearance="fill">
                     <mat-label>Fecha Desde</mat-label>
@@ -46,14 +44,16 @@
                     </mat-select>
                   </mat-form-field>
                 </td>
-              </tr>
             </table>
             <div class="button">
-              <button type="submit" mat-raised-button color="primary">Filtrar</button>
+              <a class="iconFilter" matTooltip="Reiniciar">
+                <mat-icon (click)="reset()">refresh</mat-icon>
+              </a>
+              <button class="buttonFilter" matTooltip="Filtrar" type="submit" [disabled]="disabledButton()"  mat-raised-button color="primary">Filtrar</button>
             </div>
           </form>
         </div>
-
+      <div class="table" *ngIf="listRecord.length > 0">
         <mat-toolbar class="rounding">
           <span>Registros de Horas</span>
         </mat-toolbar>
@@ -87,7 +87,7 @@
                     <ng-container matColumnDef="id">
                         <th mat-header-cell *matHeaderCellDef> Eliminar </th>
                         <td mat-cell *matCellDef="let element">
-                            <a class="icon" (click)="deleteData(element.id)" matTooltip="Eliminar usuario">
+                            <a class="icon" (click)="deleteData(element.id)" matTooltip="Eliminar Usuario">
                                 <mat-icon>delete</mat-icon>
                             </a>
                         </td>

@@ -10,8 +10,8 @@ import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
 import { UserService } from "../../services/user.service";
 import { ProjectService } from "../../services/project.service";
-import {User} from "../../interfaces/user";
-import {Project} from "../../interfaces/project";
+import { User } from "../../interfaces/user";
+import { Project } from "../../interfaces/project";
 
 @Component({
   selector: 'app-resultado',
@@ -30,6 +30,7 @@ export class ResultComponent implements OnInit {
   loadingUser: boolean;
   loadingProject: boolean;
   loadingRecord: boolean;
+  appliedFilter: boolean;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,6 +46,7 @@ export class ResultComponent implements OnInit {
     this.loadingRecord = true;
     this.loadingUser = true;
     this.loadingProject = true;
+    this.appliedFilter = false;
   }
 
   ngOnInit() {
@@ -115,6 +117,19 @@ export class ResultComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.loadingRecord = false;
+      this.appliedFilter = true;
     });
+  }
+
+  disabledButton(): boolean {
+    return !(this.form.value.fechaDesde || this.form.value.fechaHasta || this.form.value.operador || this.form.value.proyecto);
+  }
+
+  reset() {
+    this.form.reset();
+    if(this.appliedFilter) {
+      this.loadTable();
+      this.appliedFilter = false;
+    }
   }
 }

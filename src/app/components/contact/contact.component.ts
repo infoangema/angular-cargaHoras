@@ -69,7 +69,7 @@ export class ContactComponent implements OnInit {
           this._snackBar.open('Dato eliminado exitosamente.', '',{
             duration: 1500,
             horizontalPosition: 'center',
-            verticalPosition: 'top',
+            verticalPosition: 'top'
           })
         });
       }

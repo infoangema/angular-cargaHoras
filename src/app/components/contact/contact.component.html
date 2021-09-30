@@ -9,65 +9,66 @@
 
     <div class="table" *ngIf="listRecord.length > 0">
 
-      <mat-toolbar class="rounding">
-        <span>Mensajes</span>
-      </mat-toolbar>
+      <div class="containerInternal">
+        <mat-toolbar class="rounding">
+          <span>Mensajes</span>
+        </mat-toolbar>
+        <div class="mat-elevation-z8">
 
-      <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
 
-        <table mat-table [dataSource]="dataSource" matSort>
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-          </ng-container>
+            <ng-container matColumnDef="company">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </th>
+              <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="company">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Empresa </th>
-            <td mat-cell *matCellDef="let element"> {{element.company}} </td>
-          </ng-container>
+            <ng-container matColumnDef="mail">
+              <th mat-header-cell *matHeaderCellDef> Mail </th>
+              <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="mail">
-            <th mat-header-cell *matHeaderCellDef> Mail </th>
-            <td mat-cell *matCellDef="let element"> {{element.mail}} </td>
-          </ng-container>
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Telefono </th>
+              <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef> Telefono </th>
-            <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-          </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> Descripción </th>
+              <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef> Descripción </th>
-            <td class="description" mat-cell *matCellDef="let element"> {{element.description}} </td>
-          </ng-container>
+            <ng-container matColumnDef="viewed">
+              <th class="viewed" mat-header-cell *matHeaderCellDef> Estado </th>
+              <td class="viewed" mat-cell *matCellDef="let element">
+                <a *ngIf="!element.viewed" class="view" (click)="updateViewed(element)" matTooltip="No Visto">
+                  <mat-icon>visibility</mat-icon>
+                </a>
+                <a *ngIf="element.viewed" class="view" (click)="updateViewed(element)" matTooltip="Visto">
+                  <mat-icon>done</mat-icon>
+                </a>
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="viewed">
-            <th class="viewed" mat-header-cell *matHeaderCellDef> Estado </th>
-            <td class="viewed" mat-cell *matCellDef="let element">
-              <a *ngIf="!element.viewed" class="icon" (click)="updateViewed(element)" matTooltip="No Visto">
-                <mat-icon>visibility</mat-icon>
-              </a>
-              <a *ngIf="element.viewed" class="icon" (click)="updateViewed(element)" matTooltip="Visto">
-                <mat-icon>done</mat-icon>
-              </a>
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="id">
+              <th class="delete" mat-header-cell *matHeaderCellDef> Eliminar </th>
+              <td class="delete" mat-cell *matCellDef="let element">
+                <a class="icon" (click)="deleteData(element.id)" matTooltip="Eliminar Mensaje">
+                  <mat-icon>delete</mat-icon>
+                </a>
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="id">
-            <th class="delete" mat-header-cell *matHeaderCellDef> Eliminar </th>
-            <td class="delete" mat-cell *matCellDef="let element">
-              <a class="icon" (click)="deleteData(element.id)" matTooltip="Eliminar usuario">
-                <mat-icon>delete</mat-icon>
-              </a>
-            </td>
-          </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+          <mat-paginator [length]="50" [pageSize]="50" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
 
-        <mat-paginator [length]="50" [pageSize]="50" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
-
+        </div>
       </div>
     </div>
 

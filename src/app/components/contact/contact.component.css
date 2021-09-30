@@ -15,7 +15,12 @@ table {
   text-align: center;
 }
 .icon {
-  color: #bd5aff;
+  color: red;
+  cursor: pointer;
+}
+
+.view {
+  color: blueviolet;
   cursor: pointer;
 }
 
@@ -44,6 +49,10 @@ table {
 
 .viewed {
   text-align: center !important;
+}
+
+.containerInternal {
+  padding-top: 25px !important;
 }
 
 .spinner {

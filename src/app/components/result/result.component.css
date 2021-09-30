@@ -9,15 +9,33 @@ table {
 
 .rounding {
     border-radius: 25px 25px 0 0;
+    padding-top: 10px;
 }
 
 .filter {
     text-align: center;
 }
 .icon {
-    color: #bd5aff;
+    color: red;
     cursor: pointer;
     padding-left: 10px;
+}
+
+.iconFilter {
+  color: #07F740;
+  cursor: pointer;
+  transform: scale(1.5);
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  text-shadow: 0 0 2px #000;
+}
+
+.buttonFilter {
+  background-color: #bd5aff;
+  font-family: verdana Arial;
+  font-size: 15px;
+  border: 1px solid black;
 }
 
 .mat-form-field {
