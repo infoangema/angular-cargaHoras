@@ -20,6 +20,10 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
 import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
 import { ModalGenericComponent } from './components/modal-generic/modal-generic.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { LoginComponent } from './components/login/login.component';
+import { ModalLoginComponent } from './components/modal-login/modal-login.component';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,11 @@ import { ModalGenericComponent } from './components/modal-generic/modal-generic.
     ResultComponent,
     ContactComponent,
     ModalDeleteComponent,
-    ModalGenericComponent
+    ModalGenericComponent,
+    StatisticsComponent,
+    LoginComponent,
+    ModalLoginComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,

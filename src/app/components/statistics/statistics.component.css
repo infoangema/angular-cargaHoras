@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+}
+
+.containerInternal {
+  padding-top: 25px;
+}
+
+.container {
+  width: 100%;
+  min-height: 80%;
+}
+
+.rounding {
+  border-radius: 25px 25px 0 0;
+  padding-top: 10px;
+}
+
+.nullData {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  text-align: center !important;
+  position: absolute;
+  margin: auto;
+  top: 40%;
+  left: 0;
+  right: 0;
+}

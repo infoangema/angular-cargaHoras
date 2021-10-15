@@ -8,7 +8,7 @@ import { Contact } from "../interfaces/contact";
 })
 export class ContactService {
 
-  private URLCONTACT: string = 'https://angema-hours-back.herokuapp.com/contacts';
+  private URLCONTACT: string = 'https://angema-hours-back-pruebas.herokuapp.com/contacts';
 
   constructor(private http: HttpClient) { }
 

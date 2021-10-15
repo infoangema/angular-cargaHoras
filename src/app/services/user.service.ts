@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
 })
 export class UserService {
 
-  private URLUSER: string = 'https://angema-hours-back.herokuapp.com/users';
+  private URLUSER: string = 'https://angema-hours-back-pruebas.herokuapp.com/users';
 
   constructor(private http: HttpClient) { }
 

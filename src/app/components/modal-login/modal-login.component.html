@@ -1,0 +1,9 @@
+<div class="iframe">
+  <iframe [src]="transform(data[0])" onload="iFrameResize({log: true})" scrolling="no" frameborder="0"></iframe>
+</div>
+<div class="conteiner">
+  <div class="data"><b>{{data[1]}}</b></div>
+  <div mat-dialog-actions>
+    <button class="button" mat-button (click)="onClose()">Volver</button>
+  </div>
+</div>

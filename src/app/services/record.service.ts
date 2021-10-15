@@ -11,7 +11,7 @@ import { DateAdapter } from "@angular/material/core";
 })
 export class RecordService {
 
-  private URLRECORD: string = 'https://angema-hours-back.herokuapp.com/records';
+  private URLRECORD: string = 'https://angema-hours-back-pruebas.herokuapp.com/records';
 
   constructor(private http: HttpClient, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
@@ -28,6 +28,10 @@ export class RecordService {
 
   deleteRecord(index: number): Observable<any> {
     return this.http.delete(this.URLRECORD + '/' + index);
+  }
+
+  statistics():Observable<any> {
+    return this.http.get(this.URLRECORD + '/statistics');
   }
 
   filter(form: FormGroup): Observable<any> {
