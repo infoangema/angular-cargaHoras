@@ -1,0 +1,81 @@
+<form [formGroup]="loginForm">
+  <mat-form-field>
+    <mat-label>
+      {{ 'LOGIN.FORM.DOCUMENT_TYPE_LABEL' }}
+    </mat-label>
+    <mat-select class="select" disableRipple formControlName="documentType">
+      <mat-option
+        disableRipple
+        *ngFor="let userDocumentType of userDocumentTypes$ | async"
+        [value]="userDocumentType.userDocumentType"
+      >
+        {{ userDocumentType.userDocumentCode }}
+      </mat-option>
+    </mat-select>
+    <mat-error>
+      <span
+        *ngIf="
+          !loginForm.get('documentType').valid &&
+          loginForm.get('documentType').touched
+        "
+      >
+        {{ 'LOGIN.FORM.DOCUMENT_TYPE_REQUIRED' }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      {{ 'LOGIN.FORM.DOCUMENT_NUMBER_LABEL' }}
+    </mat-label>
+    <input matInput formControlName="documentNumber" trim autocomplete="off" />
+    <mat-error>
+      <span
+        *ngIf="
+          !loginForm.get('documentNumber').valid &&
+          loginForm.get('documentNumber').touched
+        "
+      >
+        {{ 'LOGIN.FORM.DOCUMENT_NUMBER_REQUIRED' }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>
+      {{ 'LOGIN.FORM.PASSWORD_LABEL' }}
+    </mat-label>
+    <input
+      matInput
+      [type]="hidePassword ? 'password' : 'text'"
+      formControlName="password"
+      autocomplete="off"
+    />
+    <mat-icon
+      matSuffix
+      class="visibilityIcon"
+      (click)="onTogglePasswordVisibilityClick()"
+      >{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon
+    >
+    <mat-error>
+      <span
+        *ngIf="
+          !loginForm.get('password').valid && loginForm.get('password').touched
+        "
+      >
+        {{ 'LOGIN.FORM.PASSWORD_REQUIRED' }}
+      </span>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="action-buttons mb-2">
+    <button disableRipple class="primary-button" (click)="onLoginClick()">
+      {{ 'LOGIN.FORM.LOGIN_BUTTON' }}
+    </button>
+    <a routerLink="/recover-password">
+      <small>
+        {{ 'LOGIN.FORM.FORGOT_PASSWORD' }}
+      </small>
+    </a>
+  </div>
+</form>

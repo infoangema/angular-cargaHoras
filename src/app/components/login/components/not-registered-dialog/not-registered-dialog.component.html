@@ -1,0 +1,20 @@
+<button mat-icon-button class="close-button" aria-label="Cerrar" mat-dialog-close disableRipple>
+  <button mat-raised-button class="close-icon">close</button>
+</button>
+
+<div class="modal-title p-3" mat-dialog-title>
+  <h4>
+    {{ 'LOGIN.NOT_REGISTERED_DIALOG.TITLE' }}
+  </h4>
+</div>
+
+<div class="modal-body p-1" mat-dialog-content>
+  <p>
+    {{ 'LOGIN.NOT_REGISTERED_DIALOG.BODY' }}
+  </p>
+</div>
+
+<button mat-raised-button class="p-4" ,align="center"></button>
+<button class="primary-button" (click)="onCreateAccountClick()">
+  {{ 'LOGIN.NOT_REGISTERED_DIALOG.CONFIRM' }}
+</button>

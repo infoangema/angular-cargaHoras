@@ -1,0 +1,45 @@
+@import '../../../../../styles/_forms.scss';
+
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  .visibilityIcon {
+    position: relative;
+    bottom: 2px;
+    left: 1px;
+    padding: 4.5px 5px 4.5px 4.5px;
+    color: #b5b8c4;
+    background: rgba(220, 222, 229, 0.42);
+    font-size: 14px;
+    border-radius: 100%;
+    cursor: pointer;
+  }
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.action-buttons {
+  a {
+    color: #000000de;
+    text-decoration: underline;
+    margin-top: 20px;
+  }
+}
+@media (min-width: map-get($grid-breakpoints, lg)) {
+  form {
+    .action-buttons {
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+  }
+  .action-buttons {
+    a {
+      margin-top: 0;
+    }
+  }
+}
