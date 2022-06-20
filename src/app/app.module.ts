@@ -6,9 +6,8 @@ import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 
 // Rutas
-import { APP_ROUTING } from './app.routes';
+import { AppRoutingModule } from './app.routing';
 import { FooterComponent } from './components/footer/footer.component';
-import { HeaderComponent } from './components/header/header.component';
 import { NoopAnimationsModule, } from '@angular/platform-browser/animations';
 import { SharedModule } from './components/shared/shared.module';
 import { ResultComponent } from './components/result/result.component';
@@ -21,11 +20,13 @@ import { MatButtonModule } from "@angular/material/button";
 import { ModalDeleteComponent } from "./components/modal-delete/modal-delete.component";
 import { ModalGenericComponent } from './components/modal-generic/modal-generic.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
-import { LoginComponent } from './components/login/login.component';
 import { ModalLoginComponent } from './components/modal-login/modal-login.component';
 import { SafePipe } from './safe.pipe';
+import { CoreModule } from "./core/core.module";
+import { HeaderComponent } from "./components/header/header.component";
+import { LoginModule } from "./core/login/login.module";
 
-@NgModule({
+@NgModule( {
   declarations: [
     AppComponent,
     HomeComponent,
@@ -36,26 +37,27 @@ import { SafePipe } from './safe.pipe';
     ModalDeleteComponent,
     ModalGenericComponent,
     StatisticsComponent,
-    LoginComponent,
     ModalLoginComponent,
-    SafePipe
+    SafePipe,
   ],
   imports: [
     BrowserModule,
-    APP_ROUTING,
     HttpClientModule,
     NoopAnimationsModule,
     SharedModule,
+    CoreModule,
     FormsModule,
     ReactiveFormsModule,
     SpinnerCircularModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    AppRoutingModule,
+    LoginModule
   ],
-  entryComponents: [ModalDeleteComponent, ModalGenericComponent],
+  entryComponents: [ ModalDeleteComponent, ModalGenericComponent ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 
 export class AppModule { }

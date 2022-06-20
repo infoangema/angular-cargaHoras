@@ -1,0 +1,5 @@
+<app-login-header></app-login-header>
+<div class="conteiner" [ngClass]="routeAnimationsElements">
+  <app-registration-form (dataRegisterEmitter) = registerAndRedirect($event)>></app-registration-form>
+</div>
+<app-login-footer></app-login-footer>

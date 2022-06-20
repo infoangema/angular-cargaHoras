@@ -4,17 +4,21 @@ import { HomeComponent } from './components/home/home.component';
 import { ResultComponent } from './components/result/result.component';
 import { ContactComponent } from "./components/contact/contact.component";
 import { StatisticsComponent } from "./components/statistics/statistics.component";
-import { LoginComponent } from "./components/login/login.component";
 
 const APP_ROUTES: Routes = [
 
-  { path: 'login', component: LoginComponent},
+//  { path: 'login', component: LoginPageComponent},
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./core/login/login.module').then(( m) => m.LoginModule),
+  },
   { path: 'home', component: HomeComponent },
   { path: 'contacto', component: ContactComponent},
   { path: 'resultado', component: ResultComponent},
   { path: 'estadistica', component: StatisticsComponent},
 
-  { path: '**', pathMatch: 'full', redirectTo: 'login'},
+  { path: '**', pathMatch: 'full', redirectTo: 'auth/login'},
 
 ];
 
@@ -23,4 +27,4 @@ const APP_ROUTES: Routes = [
     exports: [RouterModule]
 })
 
-export class APP_ROUTING { }
+export class AppRoutingModule { }

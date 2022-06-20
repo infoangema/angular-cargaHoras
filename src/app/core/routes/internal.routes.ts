@@ -1,0 +1,25 @@
+export const ROUTES_PATH = {
+  AUTH: {
+    DEFAULT: `auth`,
+    LOGIN: `login`,
+    LOGOUT: 'logout'
+
+  },
+  HOME: {
+    DEFAULT: `home`,
+  }
+};
+
+export const INTERNAL_PATHS = {
+  AUTH_DEFAULT: `${ROUTES_PATH.AUTH.DEFAULT}`,
+  AUTH_LOGIN: `${ROUTES_PATH.AUTH.LOGIN}`,
+  AUTH_LOGOUT: `${ROUTES_PATH.AUTH.LOGOUT}`,
+
+  HOME: `${ROUTES_PATH.HOME.DEFAULT}`,
+
+};
+
+export const INTERNAL_ROUTES = {
+  AUTH_LOGIN: `/${INTERNAL_PATHS.AUTH_DEFAULT}/${INTERNAL_PATHS.AUTH_LOGIN}`,
+  HOME: `/${INTERNAL_PATHS.HOME}`,
+}

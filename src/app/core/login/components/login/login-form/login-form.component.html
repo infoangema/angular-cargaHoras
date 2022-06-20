@@ -1,0 +1,41 @@
+<form [formGroup]="loginForm" class="wrap-login-form" (ngSubmit)="onLoginClick()">
+  <span class="login100-form-title p-b-51"> Login </span>
+
+  <!-- Email -->
+  <mat-form-field class="w-100">
+    <mat-label> Email</mat-label>
+    <input matInput type="text" formControlName="email" autocomplete="off"/>
+    <mat-error *ngFor="let validation of validationMessages.email">
+      <span *ngIf="getValidationFromControl(validation, 'email')"> {{ validation.message }} </span>
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Password -->
+  <mat-form-field class="w-100">
+    <mat-label> Password</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" autocomplete="off"/>
+    <mat-icon matSuffix class="visibilityIcon" (click)="onTogglePasswordVisibilityClick()">
+      {{ hidePassword ? 'visibility_off' : 'visibility' }}
+    </mat-icon>
+    <mat-error *ngFor="let validation of validationMessages.password!">
+      <span *ngIf="getValidationFromControl(validation, 'password')"> {{ validation.message }} </span>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="flex-sb-m w-full p-t-3 p-b-24">
+    <div class="contact100-form-checkbox">
+      <mat-checkbox  formControlName="remember" class="example-margin" >Recordar Usuario</mat-checkbox>
+    </div>
+
+    <div>
+      <a routerLink="/auth/register" class="txt1"> ¿No tienes cuenta? </a>
+    </div>
+  </div>
+
+  <div class="container-login100-form-btn m-t-17">
+    <button disableRipple class="" type="submit">
+      <!-- <button class="login100-form-btn" type="submit">-->
+      Ingresar
+    </button>
+  </div>
+</form>
