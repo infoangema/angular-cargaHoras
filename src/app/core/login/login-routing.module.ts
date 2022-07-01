@@ -12,14 +12,12 @@ const routes: Routes = [
     children: [
       {
         path: 'login',
-        pathMatch: 'full',
         component: LoginComponent,
         data: { title: 'Ingresar' }
       },
 
       {
         path: 'register',
-        pathMatch: 'full',
         component: RegistrationComponent,
         data: { title: 'Registro' }
       }

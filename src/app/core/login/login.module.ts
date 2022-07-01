@@ -17,6 +17,7 @@ import { RegistrationFormComponent } from "./components/registration/registratio
 import { LoginFormComponent } from "./components/login/login-form/login-form.component";
 import { LoginHeaderComponent } from './components/login-header/login-header.component';
 import { LoginFooterComponent } from './components/login-footer/login-footer.component';
+import { AuthGuard } from "../auth/auth.guard";
 
 
 @NgModule( {
@@ -44,7 +45,8 @@ import { LoginFooterComponent } from './components/login-footer/login-footer.com
     ReactiveFormsModule,
     MatInputModule,
     MatCheckboxModule
-  ]
+  ],
+  providers: [AuthGuard],
 } )
 
 export class LoginModule {

@@ -25,6 +25,7 @@ import { SafePipe } from './safe.pipe';
 import { CoreModule } from "./core/core.module";
 import { HeaderComponent } from "./components/header/header.component";
 import { LoginModule } from "./core/login/login.module";
+import { AuthGuard } from "./core/auth/auth.guard";
 
 @NgModule( {
   declarations: [
@@ -56,7 +57,7 @@ import { LoginModule } from "./core/login/login.module";
     LoginModule
   ],
   entryComponents: [ ModalDeleteComponent, ModalGenericComponent ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [ AppComponent ]
 })
 

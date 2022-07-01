@@ -22,44 +22,48 @@ export class LoginService {
 
   login( emailIn: string, passwordIn: string ): Observable<ResponseLogin> {
     const response: ResponseLogin = { error: true, message: ERROR_CONSTANTS.API.ERROR };
-    //@ts-ignore
-    const { options, body } = this.getOptionAndBody( emailIn, passwordIn );
+    const { options, body } : any = this.getOptionAndBody( emailIn, passwordIn );
     return this.http.post( ENDPOINTS_API.AUTH.LOGIN, body, options )
       .pipe(
         delay(500),
         map( ( res: any ) => {
           response.error = res.status != 200;
           response.message = res.statusText; // todo cambiar por message una vez que cambie el back.
-          //@ts-ignore
-          const { user, token } = this.getUserAndToken( res );
+          const { user, token }: any = this.getUserAndToken( res.body.body );
           this.authService.setUser( user, token );
           return response;
         } ),
         catchError( e => {
+          response.error = true;
+          response.message += " => " + e.error?.error;
           return of( response );
         } )
       );
   }
 
   private getUserAndToken( res: any ): Object {
-    const user: UserAuthenticated = {
-      mail: res.body.name,
-      name: res.body.name,
-      surname: res.body.name,
-      phone: res.body.name,
-      rol: res.body.rol,
-    };
-    const token = 'Bearer asdfjhasdfjahdahdiauhdaidbadjbnakdjakdjhadlkjahdfakljdhfakjdhalkdfjhaldkfjahsdfkjahdfakjh';
-    return { user, token };
+    try {
+      const user: UserAuthenticated = {
+        mail: res.client_data.email,
+        name: res.client_data.name,
+        lastname: res.client_data.lastname,
+        username: res.client_data.username,
+        rol: res.client_data.roles,
+      };
+      let token = `${ res.token_type } ${ res.access_token }`;
+      return { user, token };
+    } catch ( e ) {
+      throw new Error("Error al intentar setear el usuario.")
+    }
   }
 
   private getOptionAndBody( emailIn: string, passwordIn: string ): Object {
     const options = {
       observe: 'response' as const,
-      responsegType: 'json' as const,
+      responsegType: 'json' as const
     }
     const body = {
-      mail: emailIn,
+      email: emailIn,
       password: passwordIn,
     }
     return { options, body };

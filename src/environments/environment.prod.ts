@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  uri: 'https://hours-backend-pruebas.herokuapp.com/auth'
 };

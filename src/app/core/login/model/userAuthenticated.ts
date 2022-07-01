@@ -2,7 +2,7 @@
 export interface UserAuthenticated {
   mail: string;
   name: string;
-  surname: string;
-  phone: string;
+  lastname: string;
+  username: string;
   rol: string[];
 }

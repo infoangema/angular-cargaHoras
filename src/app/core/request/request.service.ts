@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, retry, timeout } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Utils } from "../util/utils";
+import { ENDPOINTS_API } from "../routes/api.routes";
 
 
 export interface HttpClientOptions {
@@ -63,7 +64,7 @@ export class RequestService {
 	private xhr<T>(method: string, resource: string, newOptions?: HttpClientOptions): Observable<T> {
 		const options = this.prepareHttpClientOptions(this.defaultOptions, newOptions);
 		// Si se envia "http" significa que es absoluta, de otra manera concatena la api con el resource
-		const endpoint = resource.substring(0, 4) === 'http' ? resource : `${environment.url}${resource}`;
+		const endpoint = resource.substring(0, 4) === 'http' ? resource : `${ENDPOINTS_API.RESOURCES.GLOBAL}${resource}`;
 		return this.httpClient.request<T>(method, endpoint, options.optionsMerged)
 		.pipe(
 			timeout(environment.httpTimeout),

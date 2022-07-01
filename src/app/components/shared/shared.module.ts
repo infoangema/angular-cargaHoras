@@ -17,6 +17,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AuthGuard } from "../../core/auth/auth.guard";
 
 @NgModule({
   declarations: [],
@@ -55,7 +56,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-  ]
+  ],
+  providers: [AuthGuard],
 })
 
 export class SharedModule { }
