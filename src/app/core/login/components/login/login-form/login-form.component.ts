@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, FormControl } from '@angular/forms';
 import { LocalStorageService } from 'src/app/core/storage/local-storage.service';
 import { VALIDATION_MESSAGES } from "../../../consts/validations.const";
 import { LoginFormValues } from "../../../model/loginFormValues";
@@ -14,11 +14,11 @@ export class LoginFormComponent implements OnInit {
 
   @Output() dataLoginEmitter = new EventEmitter();
   hidePassword = true;
-  loginForm = new FormGroup( {} );
+  loginForm = new UntypedFormGroup( {} );
   public validationMessages = VALIDATION_MESSAGES;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private localStorageService: LocalStorageService,
     private loadingService: LoadingService,
   ) {

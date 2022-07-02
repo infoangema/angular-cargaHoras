@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from "../../interfaces/user";
@@ -22,7 +22,7 @@ import { ENDPOINTS_API } from "../../core/routes/api.routes";
 
 export class HomeComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   users: any = [];
   projects: Project[] = [];
   loadingUser: boolean;
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private _snackBar: MatSnackBar,
     private httpService: HttpService,
@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
     } );
   }
 
-  disabledButton( form: FormGroup ): boolean {
+  disabledButton( form: UntypedFormGroup ): boolean {
     return ( form.value.operador.length != '' && form.value.fecha != '' && form.value.horas != '' && form.value.proyecto != '' );
   }
 

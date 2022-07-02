@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Record } from "../../interfaces/record";
 import { MatTableDataSource } from "@angular/material/table";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { RecordService } from "../../services/record.service";
 import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -25,7 +25,7 @@ export class ResultComponent implements OnInit {
   listRecord: Record[] = [];
   users: User[] = [];
   projects: Project[] = [];
-  form: FormGroup;
+  form: UntypedFormGroup;
   dataSource!: MatTableDataSource <any>;
   loadingUser: boolean;
   loadingProject: boolean;
@@ -35,7 +35,7 @@ export class ResultComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, private fb: FormBuilder, private recordService: RecordService,
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, private fb: UntypedFormBuilder, private recordService: RecordService,
               private userService: UserService, private projectService: ProjectService) {
     this.form = this.fb.group({
       fechaDesde: null,

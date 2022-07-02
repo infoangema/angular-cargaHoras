@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs";
 import { Record } from "../interfaces/record";
-import { FormGroup } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
 import { ENDPOINTS_API } from "../core/routes/api.routes";
@@ -35,7 +35,7 @@ export class RecordService {
     return this.http.get(this.URLRECORD + '/statistics');
   }
 
-  filter(form: FormGroup): Observable<any> {
+  filter(form: UntypedFormGroup): Observable<any> {
     let URLFILTER: string = this.URLRECORD + '/filter?';
     const format = 'dd/MM/yyyy';
     const locale = 'en-US';

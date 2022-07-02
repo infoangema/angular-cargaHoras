@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import { NgForm, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VALIDATION_MESSAGES } from "../../../consts/validations.const";
 import { AuthService } from "../../../../auth/auth.service";
@@ -15,13 +15,13 @@ export class RegistrationFormComponent implements OnInit {
   @Output() dataRegisterEmitter = new EventEmitter();
   public validationMessages = VALIDATION_MESSAGES;
   recordarme = false;
-  registerForm = new FormGroup({});
+  registerForm = new UntypedFormGroup({});
   hidePassword = true;
 
 
 
   constructor(private authService: AuthService,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               private router: Router,
 
 
@@ -30,7 +30,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.buildForm(); }
 
-  buildForm(): FormGroup {
+  buildForm(): UntypedFormGroup {
     const form = this.fb.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', Validators.required],
