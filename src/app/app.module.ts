@@ -28,37 +28,36 @@ import { LoginModule } from "./core/login/login.module";
 import { AuthGuard } from "./core/auth/auth.guard";
 
 @NgModule( {
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    FooterComponent,
-    HeaderComponent,
-    ResultComponent,
-    ContactComponent,
-    ModalDeleteComponent,
-    ModalGenericComponent,
-    StatisticsComponent,
-    ModalLoginComponent,
-    SafePipe,
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    NoopAnimationsModule,
-    SharedModule,
-    CoreModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SpinnerCircularModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    MatButtonModule,
-    AppRoutingModule,
-    LoginModule
-  ],
-  entryComponents: [ ModalDeleteComponent, ModalGenericComponent ],
-  providers: [AuthGuard],
-  bootstrap: [ AppComponent ]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        FooterComponent,
+        HeaderComponent,
+        ResultComponent,
+        ContactComponent,
+        ModalDeleteComponent,
+        ModalGenericComponent,
+        StatisticsComponent,
+        ModalLoginComponent,
+        SafePipe,
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        NoopAnimationsModule,
+        SharedModule,
+        CoreModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SpinnerCircularModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatButtonModule,
+        AppRoutingModule,
+        LoginModule
+    ],
+    providers: [AuthGuard],
+    bootstrap: [AppComponent]
 })
 
 export class AppModule { }
