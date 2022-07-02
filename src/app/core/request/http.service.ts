@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Utils } from "../util/utils";
 import { HttpClientOptions, RequestService } from "./request.service";
+import { LocalStorageService } from "../storage/local-storage.service";
 
 @Injectable()
-export class PreRequestService {
+export class HttpService {
   constructor(
     private http: RequestService,
+    private localStorageService: LocalStorageService,
   ) { }
 
   public get<T>(resource: string, options?: HttpClientOptions): Observable<T> {

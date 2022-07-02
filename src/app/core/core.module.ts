@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreRequestService } from "./request/pre-request.service";
+import { HttpService } from "./request/http.service";
 import { RequestService } from "./request/request.service";
 import { RegexCommon } from "./regx/regex.service";
 import { MaterialModule } from "./material/material.module";
@@ -36,7 +36,7 @@ import { MatButtonModule } from "@angular/material/button";
   exports: [],
   declarations: [],
   providers: [
-    PreRequestService,
+    HttpService,
     RequestService,
     RegexCommon
   ],

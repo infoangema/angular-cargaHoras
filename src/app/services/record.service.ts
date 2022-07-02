@@ -5,13 +5,14 @@ import { Record } from "../interfaces/record";
 import { FormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
+import { ENDPOINTS_API } from "../core/routes/api.routes";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
 
-  private URLRECORD: string = 'https://angema-hours-back-pruebas.herokuapp.com/records';
+  private URLRECORD: string = ENDPOINTS_API.RESOURCES.RECORDS;
 
   constructor(private http: HttpClient, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');

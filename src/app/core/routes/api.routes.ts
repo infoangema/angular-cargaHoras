@@ -7,5 +7,8 @@ export const ENDPOINTS_API = {
   },
   RESOURCES: {
     GLOBAL: `${ENV.uri}`,
+    USER: `${ENV.uri}/users`,
+    PROJECT: `${ENV.uri}/projects`,
+    RECORDS: `${ENV.uri}/records`,
   }
 }

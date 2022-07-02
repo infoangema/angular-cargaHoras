@@ -5,3 +5,5 @@
 - [x] [v.2]configurar guards. (configs)
 - [x] [v.2]conectar login a servicio. (login)
 - [x] [v.2]configurar spiner. (configs)
+- [ ] [ ] Actualizar a angular 14. (configs)
+- [ ] [ ]
