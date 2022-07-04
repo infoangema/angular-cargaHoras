@@ -5,7 +5,7 @@ import {catchError, map} from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
 import { ERROR_CONSTANTS } from "../../errors/errors.const";
 import { AuthService } from "../../auth/auth.service";
-import { ENDPOINTS_API } from "../../routes/api.routes";
+import { API_ENDPOINTS } from "../../routes/api.endpoints";
 
 
 
@@ -23,7 +23,7 @@ export class RegisteredService {
     const response: ResponseLogin = { error: true, message: ERROR_CONSTANTS.API.ERROR };
     //@ts-ignore
     const { options, body } = this.getOptionAndBody( emailIn, passwordIn );
-    return this.http.post( ENDPOINTS_API.AUTH.LOGIN, body, options )
+    return this.http.post( API_ENDPOINTS.AUTH.LOGIN, body, options )
       .pipe(
         map( ( res: any ) => {
           response.error = res.status != 200;

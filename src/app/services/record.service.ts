@@ -5,14 +5,14 @@ import { Record } from "../interfaces/record";
 import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
-import { ENDPOINTS_API } from "../core/routes/api.routes";
+import { API_ENDPOINTS } from "../core/routes/api.endpoints";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
 
-  private URLRECORD: string = ENDPOINTS_API.RESOURCES.RECORDS;
+  private URLRECORD: string = API_ENDPOINTS.RESOURCES.RECORDS;
 
   constructor(private http: HttpClient, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');

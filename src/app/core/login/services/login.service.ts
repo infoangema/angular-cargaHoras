@@ -6,7 +6,7 @@ import { Observable, of } from "rxjs";
 import { ERROR_CONSTANTS } from 'src/app/core/errors/errors.const';
 import { UserAuthenticated } from "../model/userAuthenticated";
 import { AuthService } from "../../auth/auth.service";
-import { ENDPOINTS_API } from "../../routes/api.routes";
+import { API_ENDPOINTS } from "../../routes/api.endpoints";
 
 
 @Injectable( {
@@ -23,7 +23,7 @@ export class LoginService {
   login( emailIn: string, passwordIn: string ): Observable<ResponseLogin> {
     const response: ResponseLogin = { error: true, message: ERROR_CONSTANTS.API.ERROR };
     const { options, body } : any = this.getOptionAndBody( emailIn, passwordIn );
-    return this.http.post( ENDPOINTS_API.AUTH.LOGIN, body, options )
+    return this.http.post( API_ENDPOINTS.AUTH.LOGIN, body, options )
       .pipe(
         delay(500),
         map( ( res: any ) => {
@@ -63,7 +63,7 @@ export class LoginService {
       responsegType: 'json' as const
     }
     const body = {
-      email: emailIn,
+      userName: emailIn,
       password: passwordIn,
     }
     return { options, body };

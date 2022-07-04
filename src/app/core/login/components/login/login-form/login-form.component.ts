@@ -39,9 +39,9 @@ export class LoginFormComponent implements OnInit {
     // 120380.gepalet
     //gepalet@angema.com.ar
     this.loginForm = this.fb.group( {
-      email: [ 'gepalet@angema.com.ar', [ Validators.required, Validators.email ] ],
+      email: [ 'gerr.devs', [ Validators.required ] ],
       password: [
-        '120380.gepalet',
+        '120383..',
         [
           Validators.required,
           Validators.minLength( 6 ),

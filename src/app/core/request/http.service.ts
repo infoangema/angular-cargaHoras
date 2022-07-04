@@ -7,12 +7,12 @@ import { LocalStorageService } from "../storage/local-storage.service";
 @Injectable()
 export class HttpService {
   constructor(
-    private http: RequestService,
+    private requestService: RequestService,
     private localStorageService: LocalStorageService,
   ) { }
 
   public get<T>(resource: string, options?: HttpClientOptions): Observable<T> {
-    return this.http.get(resource, this.setOptions(options));
+    return this.requestService.get(resource, this.setOptions(options));
   }
 
   public post<T>(resource: string, _data?: any): Observable<T> {
@@ -23,11 +23,11 @@ export class HttpService {
       },
       body: _data || ''
     };
-    return this.http.post(resource, info);
+    return this.requestService.post(resource, info);
   }
 
   public put<T>(resource: string, options?: HttpClientOptions): Observable<T> {
-    return this.http.put(resource, this.setOptions(options));
+    return this.requestService.put(resource, this.setOptions(options));
   }
 
   public delete<T>(resource: string, options?: HttpClientOptions): Observable<T> {
@@ -35,34 +35,34 @@ export class HttpService {
     if (!auth) {
       return null;
     }*/
-    return this.http.delete(resource, this.setOptions(options));
+    return this.requestService.delete(resource, this.setOptions(options));
   }
 
   public patch<T>(resource: string, data: any): Observable<T> {
     const info = {
       headers: {
-        'content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       body: data
     };
-    return this.http.patch(resource, this.setOptions(info));
+    return this.requestService.patch(resource, this.setOptions(info));
   }
 
   public newPut<T>(resource: string, data: any): Observable<T> {
     const info = {
       headers: {
-        'content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       body: data
     };
-    return this.http.put(resource, this.setOptions(info));
+    return this.requestService.put(resource, this.setOptions(info));
   }
 
 
   private setOptions(options?: HttpClientOptions): HttpClientOptions {
     return Utils.mergeDeep(options || {}, {
       headers: {
-        Authorization: 'Bearer ',
+        Authorization: `${this.localStorageService.getItem('token')}`,
       }
     });
   }

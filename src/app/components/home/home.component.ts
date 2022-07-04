@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from "../../interfaces/user";
 import { Project } from "../../interfaces/project";
 import { Record } from "../../interfaces/record";
 import * as moment from 'moment';
-import { UserService } from "../../services/user.service";
-import { ProjectService } from "../../services/project.service";
 import { RecordService } from "../../services/record.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ModalGenericComponent } from "../modal-generic/modal-generic.component";
 import { HttpService } from "../../core/request/http.service";
-import { ENDPOINTS_API } from "../../core/routes/api.routes";
+import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
+import { HttpHeaders } from "@angular/common/http";
 
 @Component( {
   selector: 'app-home',
@@ -34,7 +32,6 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private httpService: HttpService,
-    private projectService: ProjectService,
     private recordService: RecordService )
   {
     this.form = this.fb.group( {
@@ -49,11 +46,15 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpService.get(ENDPOINTS_API.RESOURCES.USER).subscribe( response => {
-      this.users = response;
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearre` });
+    console.log(headers);
+    this.httpService.get(API_ENDPOINTS.RESOURCES.USER).subscribe( ( response: any) => {
+      this.users = response.body;
       this.loadingUser = false;
     } );
-    this.projectService.getProject().subscribe( response => {
+    this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
       this.projects = response;
       this.loadingProject = false;
     } );

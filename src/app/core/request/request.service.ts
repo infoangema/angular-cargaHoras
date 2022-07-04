@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, ObservableInput } from 'rxjs';
+import { Observable, ObservableInput, TimeoutError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { TimeoutError } from 'rxjs/internal/util/TimeoutError';
 import { catchError, retry, timeout } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Utils } from "../util/utils";
-import { ENDPOINTS_API } from "../routes/api.routes";
+import { API_ENDPOINTS } from "../routes/api.endpoints";
 import { LocalStorageService } from "../storage/local-storage.service";
 
 
@@ -28,8 +28,7 @@ export class RequestService {
     const token = this.localStorageService.getItem( "token" );
     this.defaultOptions = {
       headers: {
-        'content-Type': 'application/json; charset=utf-8',
-        'Authorization': `${ token }`,
+        'Content-Type': 'application/json; charset=utf-8',
       },
       params: {},
       body: {},
@@ -63,21 +62,16 @@ export class RequestService {
 
 	private xhr<T>(method: string, resource: string, newOptions?: HttpClientOptions): Observable<T> {
 		const options = this.prepareHttpClientOptions(this.defaultOptions, newOptions);
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearre` });
-    let options2 = { headers: headers };
-		// Si se envia "http" significa que es absoluta, de otra manera concatena la api con el resource
-		const endpoint = resource.substring(0, 4) === 'http' ? resource : `${ENDPOINTS_API.RESOURCES.GLOBAL}${resource}`;
-		return this.httpClient.request<T>(method, endpoint, options2)
+		const endpoint = resource.substring(0, 4) === 'http' ? resource : `${API_ENDPOINTS.RESOURCES.GLOBAL}${resource}`;
+		return this.httpClient.request<T>(method, endpoint, options.optionsMerged)
 		.pipe(
 			timeout(environment.httpTimeout),
 			retry(environment.retry),
 			// @ts-ignore
 			catchError((err: any, caught: Observable<any>): ObservableInput<any> => {
-//				if (err instanceof TimeoutError) {
-//					console.log('Error de timeout', err);
-//				}
+				if (err instanceof TimeoutError) {
+					console.log('Error de timeout', err);
+				}
           if ( err.status === 400 ) {
             console.log( 'Error de Validación de datos', 'volver a intentar' );
           }
@@ -118,16 +112,6 @@ export class RequestService {
 			}
 		});
 
-    return headers;
-  }
-
-  private setHeaders2() : HttpHeaders {
-    const headers = new HttpHeaders(
-      {
-        'content-Type': 'application/json; charset=utf-8',
-        'Authorization': `Bearer`
-      }
-    );
     return headers;
   }
 
