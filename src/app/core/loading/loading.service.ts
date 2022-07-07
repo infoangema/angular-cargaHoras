@@ -1,6 +1,6 @@
  import { Injectable } from '@angular/core';
  import { BehaviorSubject } from 'rxjs';
-// import { BlockUIService } from 'ng-block-ui';
+ import { BlockUIService } from 'ng-block-ui';
 
 
  @Injectable({
@@ -13,34 +13,33 @@
      return this.isLoading.asObservable();
    }
 
-//   constructor(private blockUIService: BlockUIService) {}
-   constructor() {}
+   constructor(private blockUIService: BlockUIService) {}
 
    toggleLoading() {
-//     if (!this.blockUIService.isActive('app')) {
-//       this.blockUIService.start('app');
-//       this.isLoading.next(true);
-//     } else {
-//       this.blockUIService.stop('app');
-//       this.isLoading.next(false);
-//     }
+     if (!this.blockUIService.isActive('app')) {
+       this.blockUIService.start('app');
+       this.isLoading.next(true);
+     } else {
+       this.blockUIService.stop('app');
+       this.isLoading.next(false);
+     }
    }
 
    tryToStartLoading() {
-//     if (this.blockUIService.isActive('app')) {
-//       return;
-//     }
-//
-//     this.blockUIService.start('app');
-//     this.isLoading.next(true);
+     if (this.blockUIService.isActive('app')) {
+       return;
+     }
+
+     this.blockUIService.start('app');
+     this.isLoading.next(true);
    }
 
    tryToStopLoading() {
-//     if (!this.blockUIService.isActive('app')) {
-//       return;
-//     }
-//
-//     this.blockUIService.stop('app');
-//     this.isLoading.next(false);
+     if (!this.blockUIService.isActive('app')) {
+       return;
+     }
+
+     this.blockUIService.stop('app');
+     this.isLoading.next(false);
    }
  }

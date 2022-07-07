@@ -11,6 +11,7 @@ import { ModalGenericComponent } from "../modal-generic/modal-generic.component"
 import { HttpService } from "../../core/request/http.service";
 import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
 import { HttpHeaders } from "@angular/common/http";
+import { LoadingService } from "../../core/loading/loading.service";
 
 @Component( {
   selector: 'app-home',
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
   users: any = [];
   projects: Project[] = [];
   loadingUser: boolean;
-  loadingProject: boolean;
+  isLoading: boolean;
 
   constructor(
     public dialog: MatDialog,
@@ -32,7 +33,8 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private httpService: HttpService,
-    private recordService: RecordService )
+    private recordService: RecordService,
+    private loadingService: LoadingService)
   {
     this.form = this.fb.group( {
       operador: [ '' ],
@@ -42,21 +44,19 @@ export class HomeComponent implements OnInit {
       descripcion: [ '' ]
     } );
     this.loadingUser = true;
-    this.loadingProject = true;
+    this.isLoading = true;
   }
 
   ngOnInit(): void {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearre` });
-    console.log(headers);
+    this.loadingService.tryToStartLoading();
     this.httpService.get(API_ENDPOINTS.RESOURCES.USER).subscribe( ( response: any) => {
-      this.users = response.body;
+      this.users = response;
       this.loadingUser = false;
     } );
     this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
       this.projects = response;
-      this.loadingProject = false;
+      this.isLoading = false;
+      this.loadingService.tryToStopLoading();
     } );
   }
 

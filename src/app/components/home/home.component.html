@@ -1,12 +1,12 @@
-<div class="spinner">
-  <sa-spinner-circular *ngIf="loadingProject && loadingUser" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>
-</div>
+<!--<div class="spinner">-->
+<!--  <sa-spinner-circular *ngIf="isLoading" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>-->
+<!--</div>-->
 
-<div *ngIf="!loadingProject && !loadingUser">
+<div>
   <div class="container">
     <app-header></app-header>
 
-    <div class="conteiner" *ngIf="users.length != 0 && projects.length != 0">
+    <div class="conteiner">
       <div class="tabla">
         <form [formGroup]="form" (ngSubmit)="newData()">
           <table class="input">
@@ -14,7 +14,7 @@
               <td class="inputTable">
                 <div>
                   <h2>Operario</h2>
-                  <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
+                  <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione su nombre</mat-label>
                     <mat-select formControlName="operador">
                       <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
@@ -50,7 +50,7 @@
               <td class="inputTable">
                 <div>
                   <h2>Proyecto</h2>
-                  <mat-form-field *ngIf="!loadingUser" appearance="fill" class="width">
+                  <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione proyecto trabajado</mat-label>
                     <mat-select formControlName="proyecto">
                       <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>

@@ -26,38 +26,43 @@ import { CoreModule } from "./core/core.module";
 import { HeaderComponent } from "./components/header/header.component";
 import { LoginModule } from "./core/login/login.module";
 import { AuthGuard } from "./core/auth/auth.guard";
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule( {
-    declarations: [
-        AppComponent,
-        HomeComponent,
-        FooterComponent,
-        HeaderComponent,
-        ResultComponent,
-        ContactComponent,
-        ModalDeleteComponent,
-        ModalGenericComponent,
-        StatisticsComponent,
-        ModalLoginComponent,
-        SafePipe,
-    ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        NoopAnimationsModule,
-        SharedModule,
-        CoreModule,
-        FormsModule,
-        ReactiveFormsModule,
-        SpinnerCircularModule,
-        BrowserAnimationsModule,
-        MatDialogModule,
-        MatButtonModule,
-        AppRoutingModule,
-        LoginModule
-    ],
-    providers: [AuthGuard],
-    bootstrap: [AppComponent]
-})
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    FooterComponent,
+    HeaderComponent,
+    ResultComponent,
+    ContactComponent,
+    ModalDeleteComponent,
+    ModalGenericComponent,
+    StatisticsComponent,
+    ModalLoginComponent,
+    SafePipe,
+  ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    NoopAnimationsModule,
+    SharedModule,
+    CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SpinnerCircularModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    AppRoutingModule,
+    LoginModule,
+    BlockUIModule.forRoot( {
+      delayStop: 500
+    } )
+  ],
+  providers: [ AuthGuard ],
+  bootstrap: [ AppComponent ]
+} )
 
-export class AppModule { }
+export class AppModule {
+}

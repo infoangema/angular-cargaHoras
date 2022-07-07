@@ -63,7 +63,7 @@ export class LoginService {
       responsegType: 'json' as const
     }
     const body = {
-      userName: emailIn,
+      email: emailIn,
       password: passwordIn,
     }
     return { options, body };
