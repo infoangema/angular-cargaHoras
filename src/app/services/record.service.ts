@@ -6,6 +6,7 @@ import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
 import { API_ENDPOINTS } from "../core/routes/api.endpoints";
+import { HttpService } from "../core/request/http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,25 +15,25 @@ export class RecordService {
 
   private URLRECORD: string = API_ENDPOINTS.RESOURCES.RECORDS;
 
-  constructor(private http: HttpClient, private dateAdapter: DateAdapter<Date>) {
+  constructor(private httpService: HttpService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
   }
 
   getRecods(): Observable<any> {
-    return this.http.get(this.URLRECORD);
+    return this.httpService.get(this.URLRECORD);
   }
 
   postRecord(record: Record): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post(this.URLRECORD, JSON.stringify(record), {headers: headers});
+    return this.httpService.post(this.URLRECORD, JSON.stringify(record));
   }
 
   deleteRecord(index: number): Observable<any> {
-    return this.http.delete(this.URLRECORD + '/' + index);
+    return this.httpService.delete(this.URLRECORD + '/' + index);
   }
 
   statistics():Observable<any> {
-    return this.http.get(this.URLRECORD + '/statistics');
+    return this.httpService.get(this.URLRECORD + '/statistics');
   }
 
   filter(form: UntypedFormGroup): Observable<any> {
@@ -65,6 +66,6 @@ export class RecordService {
       URLFILTER += 'project=' + form.value.proyecto.id;
     }
     console.log(URLFILTER);
-    return this.http.get(URLFILTER);
+    return this.httpService.get(URLFILTER);
   }
 }

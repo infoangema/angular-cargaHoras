@@ -9,6 +9,7 @@ import { LoginFormValues } from "../../model/loginFormValues";
 import { ROUTE_ANIMATIONS_ELEMENTS } from "../../../animations/route.animations";
 import { LoadingService } from "../../../loading/loading.service";
 import { INTERNAL_ROUTES } from "../../../routes/internal.routes";
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Component({
   selector: 'app-login',
@@ -24,16 +25,18 @@ export class LoginComponent implements OnInit {
     private loadingService: LoadingService,
     private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onCreateAccountClick(): void {
     this.router.navigate(['/create-account']);
   }
 
   public loginAndRedirect( data: LoginFormValues ): void {
-    this.loginService.login( data.email, data.password )
+    this.loginService.loginSetUserAndRoles( data.email, data.password )
       .pipe(tap(() => this.loadingService.toggleLoading()))
       .subscribe( ( loginResponse: ResponseLogin ) => {
+        //@ts-ignore
           loginResponse.error ? this.showDialog(loginResponse.message) : this.router.navigateByUrl( INTERNAL_ROUTES.HOME );
         }
       );

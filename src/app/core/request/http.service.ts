@@ -18,6 +18,7 @@ export class HttpService {
   public post<T>(resource: string, _data?: any): Observable<T> {
     const info = {
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         'responseType': 'json',
         'observe': 'response'
       },

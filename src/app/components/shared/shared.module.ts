@@ -18,6 +18,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthGuard } from "../../core/auth/auth.guard";
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
   declarations: [],
@@ -56,6 +57,7 @@ import { AuthGuard } from "../../core/auth/auth.guard";
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    NgxPermissionsModule
   ],
   providers: [AuthGuard],
 })

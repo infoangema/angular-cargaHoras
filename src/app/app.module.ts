@@ -27,6 +27,7 @@ import { HeaderComponent } from "./components/header/header.component";
 import { LoginModule } from "./core/login/login.module";
 import { AuthGuard } from "./core/auth/auth.guard";
 import { BlockUIModule } from 'ng-block-ui';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule( {
   declarations: [
@@ -56,6 +57,7 @@ import { BlockUIModule } from 'ng-block-ui';
     MatButtonModule,
     AppRoutingModule,
     LoginModule,
+    NgxPermissionsModule.forRoot(),
     BlockUIModule.forRoot( {
       delayStop: 500
     } )

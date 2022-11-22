@@ -20,7 +20,7 @@ export class LoginService {
   ) {}
 
 
-  login( emailIn: string, passwordIn: string ): Observable<ResponseLogin> {
+  loginSetUserAndRoles( emailIn: string, passwordIn: string ): Observable<ResponseLogin> {
     const response: ResponseLogin = { error: true, message: ERROR_CONSTANTS.API.ERROR };
     const { options, body } : any = this.getOptionAndBody( emailIn, passwordIn );
     return this.http.post( API_ENDPOINTS.AUTH.LOGIN, body, options )

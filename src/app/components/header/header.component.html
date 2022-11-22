@@ -2,13 +2,13 @@
     <label class="logo">
         <img src="../../../assets/img/logoCompleto.svg">
     </label>
-    <ul class="menu_items">
-      <li><a routerLink="/login">Login</a></li>
-      <li><a href="https://www.angema.com.ar/home">Web</a></li>
-      <li class=""><a routerLink="/home">Carga Horas</a></li>
-      <li><a routerLink="/resultado">Registros Horas</a></li>
-      <li><a routerLink="/estadistica">Estadisticas Horas</a></li>
-      <li><a routerLink="/contacto">Mensajes</a></li>
+    <ul class="menu_items" *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_DEV', 'ROLE_USER']">
+<!--      <li *ngxPermissionsOnly="['ADMIN']"><a routerLink="/login">Login</a></li>-->
+<!--      <li *ngxPermissionsOnly="['ADMIN', 'GUEST']"><a href="https://www.angema.com.ar/home">Web</a></li>-->
+      <li *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_DEV']"><a routerLink="/home">Carga Horas</a></li>
+      <li *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_DEV']"><a routerLink="/resultado">Registros Horas</a></li>
+      <li *ngxPermissionsOnly="['ROLE_ADMIN', 'ROLE_DEV', 'ROLE_USER']"><a routerLink="/estadistica">Estadisticas Horas</a></li>
+      <li *ngxPermissionsOnly="['ROLE_USER']"><a routerLink="/contacto">Mensajes</a></li>
     </ul>
     <span class="btn_menu">
         <img src="../../../assets/img/menu.svg">

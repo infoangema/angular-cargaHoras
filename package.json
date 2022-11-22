@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "ng-block-ui": "^3.0.2",
+    "ngx-permissions": "^13.0.1",
     "path": "^0.12.7",
     "rxjs": "~7.5.5",
     "spinners-angular": "0.0.4",
