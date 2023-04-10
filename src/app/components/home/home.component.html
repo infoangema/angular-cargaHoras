@@ -17,7 +17,7 @@
                   <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione su nombre</mat-label>
                     <mat-select formControlName="operador">
-                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
+                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
