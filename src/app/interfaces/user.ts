@@ -1,8 +1,11 @@
 export interface User {
   id: number,
-  mail: string,
+  userName: string,
   name: string,
-  surname: string,
+  lastName : string,
   password: string,
-  phone: string
+  mail: string,
+  phone: string,
+  surname: string,
+  active:boolean,
 }

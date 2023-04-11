@@ -11,7 +11,7 @@ API_ENDPOINTS = {
   },
   RESOURCES: {
     GLOBAL: `${ENV.URL_BASE}`,
-    USER: `${ENV.URL_BASE}auth/user`,
+    USER: `${ENV.URL_BASE}/auth/users`,
     PROYECTOS: `${ENV.URL_BASE}/proyectos`,
     RECORDS: `${ENV.URL_BASE}/records`,
   }

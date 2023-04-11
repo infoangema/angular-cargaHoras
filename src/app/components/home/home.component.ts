@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadingService.tryToStartLoading();
     this.httpService.get(API_ENDPOINTS.RESOURCES.USER).subscribe( ( response: any) => {
-      this.users = response;
+      this.users = response.body;
       this.loadingUser = false;
     } );
     this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
