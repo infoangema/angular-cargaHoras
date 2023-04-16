@@ -11,17 +11,17 @@
         <form [formGroup]="form" (ngSubmit)="newData()">
           <table class="input">
             <tr>
-              <td class="inputTable">
-                <div>
-                  <h2>Operario</h2>
-                  <mat-form-field appearance="fill" class="width">
-                    <mat-label>Seleccione su nombre</mat-label>
-                    <mat-select formControlName="operador">
-                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </td>
+              <!--  <td class="inputTable">
+                  <div>
+                    <h2>Operario</h2>
+                    <mat-form-field appearance="fill" class="width">
+                      <mat-label>Seleccione su nombre</mat-label>
+                      <mat-select formControlName="operador">
+                        <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+              </td>-->
               <td class="inputTable">
                 <div>
                   <h2>Fecha</h2>
@@ -32,6 +32,17 @@
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <!-- #enddocregion toggle -->
+                  </mat-form-field>
+                </div>
+              </td>
+              <td class="inputTable">
+                <div>
+                  <h2>Proyecto</h2>
+                  <mat-form-field appearance="fill" class="width">
+                    <mat-label>Seleccione proyecto trabajado</mat-label>
+                    <mat-select formControlName="proyecto">
+                      <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
                 </div>
               </td>
@@ -47,17 +58,7 @@
                   </mat-form-field>
                 </div>
               </td>
-              <td class="inputTable">
-                <div>
-                  <h2>Proyecto</h2>
-                  <mat-form-field appearance="fill" class="width">
-                    <mat-label>Seleccione proyecto trabajado</mat-label>
-                    <mat-select formControlName="proyecto">
-                      <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </td>
+
             </tr>
           </table>
           <div>

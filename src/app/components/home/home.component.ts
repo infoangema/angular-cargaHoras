@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       this.loadingUser = false;
     } );
     this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
-      this.projects = response;
+      this.projects = response.body;
       this.isLoading = false;
       this.loadingService.tryToStopLoading();
     } );

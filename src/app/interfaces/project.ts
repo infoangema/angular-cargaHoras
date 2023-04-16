@@ -4,5 +4,7 @@ export interface Project {
   id: number,
   name: string,
   description: string,
-  company: Company
+  company : Company,
+  status: boolean,
+
 }

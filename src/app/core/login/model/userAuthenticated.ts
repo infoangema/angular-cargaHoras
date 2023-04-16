@@ -1,8 +1,12 @@
 
 export interface UserAuthenticated {
-  mail: string;
-  name: string;
-  lastname: string;
+  id: number;
+  active: boolean;
   username: string;
-  rol: string[];
+  roles: Role[];
+}
+
+export interface Role {
+  id: number;
+  description: string;
 }

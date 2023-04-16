@@ -25,7 +25,8 @@ export class AuthService {
   public setUser( user: UserAuthenticated, token: string ): void {
     this.localStorageService.setItem( 'currentUser', user );
     this.localStorageService.setItem('token', token);
-    this.permissionsService.loadPermissions(user.rol);
+    let roles: string[] = user.roles.map( rol => rol.description);
+    this.permissionsService.loadPermissions(roles);
     this.currenUser = new BehaviorSubject(
       this.localStorageService.getItem( 'currentUser' )
     );
