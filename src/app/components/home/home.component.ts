@@ -82,10 +82,12 @@ export class HomeComponent implements OnInit {
       hours: template.hours,
       description: template.description,
       user: template.user,
-      project: template.project
+      project: template.project,
+
     };
     this.recordService.postRecord( record ).subscribe( response => {
-      console.log( response );
+      //Authorization: `Bearer ${localStorage.getItem('token')}`,
+      console.log( response);
       const dialogRef = this.dialog.open( ModalGenericComponent, { data: "¿Deseas seguir cargando registros?" } );
       dialogRef.afterClosed().subscribe( response => {
         if ( !response ) {

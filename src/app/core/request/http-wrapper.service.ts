@@ -20,7 +20,8 @@ export class HttpWrapperService {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'responseType': 'json',
-        'observe': 'response'
+        'observe': 'response',
+        'Authorization': `${this.localStorageService.getItem('token')}`,
       },
       body: _data || ''
     };
