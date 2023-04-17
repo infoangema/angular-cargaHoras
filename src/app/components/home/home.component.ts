@@ -8,10 +8,9 @@ import * as moment from 'moment';
 import { RecordService } from "../../services/record.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ModalGenericComponent } from "../modal-generic/modal-generic.component";
-import { HttpService } from "../../core/request/http.service";
-import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
-import { HttpHeaders } from "@angular/common/http";
+import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { LoadingService } from "../../core/loading/loading.service";
+import { AuthService } from "../../core/auth/auth.service";
 
 @Component( {
   selector: 'app-home',
@@ -32,7 +31,8 @@ export class HomeComponent implements OnInit {
     private fb: UntypedFormBuilder,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private httpService: HttpService,
+    private authService: AuthService,
+    private httpService: HttpWrapperService,
     private recordService: RecordService,
     private loadingService: LoadingService)
   {
@@ -49,19 +49,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadingService.tryToStartLoading();
-    this.httpService.get(API_ENDPOINTS.RESOURCES.USER).subscribe( ( response: any) => {
-      this.users = response.body;
-      this.loadingUser = false;
-    } );
-    this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
-      this.projects = response.body;
+
+    this.authService.userProjects.subscribe( ( response: any) => {
+      this.projects = response;
       this.isLoading = false;
       this.loadingService.tryToStopLoading();
     } );
   }
 
   disabledButton( form: UntypedFormGroup ): boolean {
-    return ( form.value.operador.length != '' && form.value.fecha != '' && form.value.horas != '' && form.value.proyecto != '' );
+    return ( form.value.fecha != '' && form.value.horas != '' && form.value.proyecto != '' );
   }
 
   newData() {
@@ -69,7 +66,7 @@ export class HomeComponent implements OnInit {
       date: this.form.value.fecha,
       hours: this.form.value.horas,
       description: this.form.value.descripcion,
-      user: this.form.value.operador,
+      user: this.authService.user,
       project: this.form.value.proyecto
     }
     this.postData( template );

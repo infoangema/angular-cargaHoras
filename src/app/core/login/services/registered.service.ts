@@ -30,7 +30,7 @@ export class RegisteredService {
           response.message = res.statusText; // todo cambiar por message una vez que cambie el back.
           //@ts-ignore
           const { user, token } = this.getUserAndToken( res );
-          this.authService.setUser( user, token );
+          this.authService.setAuth( user );
           return response;
         } ),
         catchError( e => {

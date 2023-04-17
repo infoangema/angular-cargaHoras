@@ -10,7 +10,7 @@ import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
 import { User } from "../../interfaces/user";
 import { Project } from "../../interfaces/project";
-import { HttpService } from "../../core/request/http.service";
+import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
 
 @Component( {
@@ -40,7 +40,7 @@ export class ResultComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private fb: UntypedFormBuilder,
     private recordService: RecordService,
-    private httpService: HttpService
+    private httpService: HttpWrapperService
   ) {
     this.form = this.fb.group( {
       fechaDesde: null,
@@ -102,6 +102,7 @@ export class ResultComponent implements OnInit {
     if ( record != undefined ) {
       dataString.push( 'Fecha: ' + record.date );
       dataString.push( 'Hora: ' + record.hours );
+      //@ts-ignore
       dataString.push( 'Operador: ' + record.user.name + ' ' + record.user.surname );
       dataString.push( 'Proyecto: ' + record.project.name );
       dataString.push( 'Description: ' + record.description );

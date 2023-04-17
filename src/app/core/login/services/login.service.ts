@@ -4,10 +4,10 @@ import {ResponseLogin} from "../model/responseLogin";
 import {catchError, debounceTime, delay, map, switchMap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {ERROR_CONSTANTS} from 'src/app/core/errors/errors.const';
-import {UserAuthenticated} from "../model/userAuthenticated";
+import { AuthDto, Authresponse, GlobalResponse } from "../model/userAuthenticated";
 import {AuthService} from "../../auth/auth.service";
 import {API_ENDPOINTS} from "../../routes/api.endpoints";
-
+import { HttpWrapperService } from "../../request/http-wrapper.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ import {API_ENDPOINTS} from "../../routes/api.endpoints";
 export class LoginService {
 
   constructor(
-    private http: HttpClient,
+    private httpService: HttpWrapperService,
     private authService: AuthService,
   ) {
   }
@@ -24,39 +24,34 @@ export class LoginService {
   loginSetUserAndRoles(emailIn: string, passwordIn: string): Observable<ResponseLogin> {
     const response: ResponseLogin = {error: true, message: ERROR_CONSTANTS.API.ERROR};
     const {options, body}: any = this.getOptionAndBody(emailIn, passwordIn);
-    return this.http.post(API_ENDPOINTS.AUTH.LOGIN, body, options).pipe(
-      delay(500),
-      // switchMap(user => {
-      //   const userId = user.id;
-      //   return this.http.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`);
-      // }),
-      map((res: any) => {
-        response.error = res.status != 200;
-        response.message = res.statusText; // todo cambiar por message una vez que cambie el back.
-        const {auth, token}: any = this.getUserAndToken(res.body.body);
-        let id = auth.id;
-        // todo: crear request a http://localhost:8082/users/read/id
-        this.authService.setUser(auth, token);
-        return response;
-      }),
-      catchError(e => {
-        response.error = true;
-        response.message += " => " + e.error?.error;
-        return of(response);
+    return this.httpService.post<GlobalResponse>(API_ENDPOINTS.AUTH.LOGIN, body, options).pipe(
+      switchMap((globalResponse: GlobalResponse) => {
+        const userId = globalResponse.body.user_id;
+        const {auth, token}: any = this.getAuthAndToken(globalResponse.body);
+        this.authService.setAuth(auth);
+        this.authService.setToken(token);
+        return this.httpService.get<GlobalResponse>(`${API_ENDPOINTS.USER.USER_BY_ID}/${userId}`).pipe(
+          map( (res: GlobalResponse) => {
+            this.authService.setUser(res.body);
+            response.error = false;
+            response.message = 'OK';
+            return response;
+          })
+        );
       })
     );
   }
 
-  private getUserAndToken(res: any): Object {
+  private getAuthAndToken(res: Authresponse): Object {
     try {
-      const user: UserAuthenticated = {
+      const auth: AuthDto = {
         id: res.auth_data.id,
         active: res.auth_data.active,
         username: res.auth_data.username,
         roles: res.auth_data.roles,
       };
       let token = `${res.token_type} ${res.access_token}`;
-      return {user, token};
+      return {auth, token};
     } catch (e) {
       throw new Error("Error al intentar setear el usuario.")
     }

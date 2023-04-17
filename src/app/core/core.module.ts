@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
+import { HttpWrapperService } from "./request/http-wrapper.service";
 import { HttpService } from "./request/http.service";
-import { RequestService } from "./request/request.service";
 import { RegexCommon } from "./regx/regex.service";
 import { MaterialModule } from "./material/material.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -36,8 +36,8 @@ import { MatButtonModule } from "@angular/material/button";
   exports: [],
   declarations: [],
   providers: [
+    HttpWrapperService,
     HttpService,
-    RequestService,
     RegexCommon
   ],
 } )

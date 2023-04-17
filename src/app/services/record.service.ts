@@ -6,7 +6,7 @@ import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
 import { API_ENDPOINTS } from "../core/routes/api.endpoints";
-import { HttpService } from "../core/request/http.service";
+import { HttpWrapperService } from "../core/request/http-wrapper.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class RecordService {
 
   private URLRECORD: string = API_ENDPOINTS.RESOURCES.RECORDS;
 
-  constructor(private httpService: HttpService, private dateAdapter: DateAdapter<Date>) {
+  constructor( private httpService: HttpWrapperService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
   }
 
