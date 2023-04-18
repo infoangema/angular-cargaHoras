@@ -1,58 +1,5 @@
-<div class="spinner">
-  <sa-spinner-circular *ngIf="loadingRecord && loadingProject && loadingUser" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>
-</div>
-
-<div *ngIf="!loadingRecord && !loadingProject && !loadingUser">
+<div *ngIf="actualizar">
   <div class="container">
-
-      <app-header></app-header>
-
-        <div class="containerInternal">
-          <form [formGroup]="form" (ngSubmit)="filter()">
-            <table>
-                <td>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Fecha Desde</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="fechaDesde">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Fecha Hasta</mat-label>
-                    <input matInput [matDatepicker]="picker2" formControlName="fechaHasta">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Filtrar por Operador</mat-label>
-                    <mat-select formControlName="operador">
-                      <mat-option [value]=null>Ninguno</mat-option>
-                      <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.surname}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </td>
-                <td>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Filtrar por Proyecto</mat-label>
-                    <mat-select formControlName="proyecto">
-                      <mat-option [value]=null>Ninguno</mat-option>
-                      <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </td>
-            </table>
-            <div class="button">
-              <a class="iconFilter" matTooltip="Reiniciar">
-                <mat-icon (click)="reset()">refresh</mat-icon>
-              </a>
-              <button class="buttonFilter" matTooltip="Filtrar" type="submit" [disabled]="disabledButton()"  mat-raised-button color="primary">Filtrar</button>
-            </div>
-          </form>
-        </div>
       <div class="table" *ngIf="listRecord.length > 0">
         <mat-toolbar class="rounding">
           <span>Registros de Horas</span>
@@ -104,7 +51,5 @@
       <h2 *ngIf="listRecord.length == 0" class="nullData">No hay registros cargados.</h2>
 
   </div>
-
-  <app-footer></app-footer>
 
 </div>

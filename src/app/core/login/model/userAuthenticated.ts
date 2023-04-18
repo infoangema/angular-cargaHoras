@@ -1,68 +1,67 @@
-export interface GlobalResponse {
-  status: string,
-  path: string,
-  timestamp: string,
-  body: any,
-  "error": string
+export class GlobalResponse {
+  status: string = '';
+  path: string = '';
+  timestamp: string = '';
+  body: any;
+  error: string = '';
 }
 
-export interface Authresponse {
-  access_token: string,
-  token_type: string,
-  expires_in: string,
-  refresh_token: string,
-  issued_at: string,
-  user_id: number,
-  auth_data: AuthDto,
+export class Authresponse {
+  access_token: string = '';
+  token_type: string = '';
+  expires_in: string = '';
+  refresh_token: string = '';
+  issued_at: string = '';
+  user_id: number | undefined = undefined;
+  auth_data: Auth = new Auth();
 }
 
-export interface AuthDto {
-  id: number,
-  active: boolean,
-  username: string,
-  roles: Role[]
+export class Auth {
+  id: number | undefined = undefined;
+  active: boolean =true;
+  username: string = '';
+  roles: Role[] = [];
 }
 
-export interface Role {
-  id: number,
-  descripcion: string
+export class Role {
+  id: number | undefined = undefined;
+  descripcion: string = '';
 }
 
-export interface UserResponse {
-  id: number,
-  name: string,
-  lastName: string,
-  email: string,
-  phone: string,
-  active: boolean,
-  projects: Project[]
+export class User {
+  id: number | undefined = undefined;
+  name: string = '';
+  lastName: string = '';
+  email: string = '';
+  phone: string = '';
+  active: boolean =true;
+  projects: Project[] = [];
 }
 
-export interface Project {
-  id: number,
-  name: string,
-  description: string,
-  company: Company,
-  status: boolean
+export class Project {
+  id: number | undefined = undefined;
+  name: string = '';
+  description: string = '';
+  company: Company = new Company();
+  status: boolean = true;
 }
 
-export interface Company {
-  id: number,
-  name: string,
-  description: string,
-  cuit: string,
-  direction: string
+export class Company {
+  id: number | undefined = undefined;
+  name: string = '';
+  description: string = '';
+  cuit: string = '';
+  direction: string = '';
 }
 
-
-//export interface UserAuthenticated {
-//  id: number;
-//  active: boolean;
-//  username: string;
-//  roles: Role[];
-//}
-//
-//export interface Role {
-//  id: number;
-//  description: string;
-//}
+export class Record {
+  id: number | undefined = undefined;
+  date: string = '';
+  hours: number | undefined = undefined;
+  description: string = '';
+  user: User = new User();
+  project: Project = new Project();
+  visible: boolean = true;
+  rol?: string = '';
+  status: boolean = true;
+}

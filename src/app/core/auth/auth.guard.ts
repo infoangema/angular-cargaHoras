@@ -9,14 +9,14 @@ import {
   UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from "./auth.service";
+import { AuthUserService } from "./auth-user.service";
 import { INTERNAL_ROUTES } from "../routes/internal.routes";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor( private authService: AuthService, private router: Router ) {
+  constructor( private authService: AuthUserService, private router: Router ) {
     console.log("entro");
   }
 

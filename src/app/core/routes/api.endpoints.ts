@@ -16,6 +16,6 @@ export let API_ENDPOINTS = {
     GLOBAL: `${ENV.URL_BASE}`,
     USER: `${ENV.URL_BASE}/users/read`,
     PROYECTOS: `${ENV.URL_BASE}/projects/read`,
-    RECORDS: `${ENV.URL_BASE}/records/create`,
+    RECORDS: `${ENV.URL_BASE}/records`,
   }
 };

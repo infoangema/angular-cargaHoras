@@ -1,4 +1,4 @@
-import { AuthDto } from "./userAuthenticated";
+import { Auth } from "./userAuthenticated";
 
 export interface ResponseLogin {
   error: boolean,
@@ -7,6 +7,6 @@ export interface ResponseLogin {
 }
 
 interface Body {
-  user?: AuthDto | null,
+  user?: Auth | null,
   token?: string | null
 }

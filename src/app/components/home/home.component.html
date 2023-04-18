@@ -1,34 +1,17 @@
-<!--<div class="spinner">-->
-<!--  <sa-spinner-circular *ngIf="isLoading" [size]="80" [thickness]="100" [speed]="100" color="rgba(189, 90, 255, 0.88)" secondaryColor="rgba(24, 24, 24, 0.1)" ></sa-spinner-circular>-->
-<!--</div>-->
-
 <div>
   <div class="container">
-    <app-header></app-header>
-
     <div class="conteiner">
       <div class="tabla">
         <form [formGroup]="form" (ngSubmit)="newData()">
           <table class="input">
             <tr>
-              <!--  <td class="inputTable">
-                  <div>
-                    <h2>Operario</h2>
-                    <mat-form-field appearance="fill" class="width">
-                      <mat-label>Seleccione su nombre</mat-label>
-                      <mat-select formControlName="operador">
-                        <mat-option *ngFor="let user of users" [value]="user">{{user.name}} {{user.name}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-              </td>-->
               <td class="inputTable">
                 <div>
                   <h2>Fecha</h2>
                   <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione fecha trabajada</mat-label>
                     <!-- #docregion toggle -->
-                    <input matInput [matDatepicker]="picker" formControlName="fecha">
+                    <input matInput [matDatepicker]="picker" formControlName="fecha" [(ngModel)]="selectedDate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <!-- #enddocregion toggle -->
@@ -40,7 +23,7 @@
                   <h2>Proyecto</h2>
                   <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione proyecto trabajado</mat-label>
-                    <mat-select formControlName="proyecto">
+                    <mat-select formControlName="proyecto" [(ngModel)]="selectedProject">
                       <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -75,13 +58,7 @@
         </form>
       </div>
     </div>
-
-    <h2 *ngIf="users.length == 0 && projects.length == 0" class="nullData">No hay datos cargados.</h2>
-    <h2 *ngIf="users.length != 0 && projects.length == 0" class="nullData">No hay proyectos cargados.</h2>
-    <h2 *ngIf="users.length == 0 && projects.length != 0" class="nullData">No hay operadores cargados.</h2>
-
+    <app-resultado></app-resultado>
   </div>
-
-  <app-footer></app-footer>
 
 </div>

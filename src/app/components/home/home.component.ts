@@ -2,15 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Project } from "../../interfaces/project";
-import { Record } from "../../interfaces/record";
 import * as moment from 'moment';
 import { RecordService } from "../../services/record.service";
 import { MatDialog } from "@angular/material/dialog";
-import { ModalGenericComponent } from "../modal-generic/modal-generic.component";
 import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { LoadingService } from "../../core/loading/loading.service";
-import { AuthService } from "../../core/auth/auth.service";
+import { AuthUserService } from "../../core/auth/auth-user.service";
+import { Project, User } from "../../core/login/model/userAuthenticated";
 
 @Component( {
   selector: 'app-home',
@@ -23,38 +21,41 @@ export class HomeComponent implements OnInit {
   form: UntypedFormGroup;
   users: any = [];
   projects: Project[] = [];
-  loadingUser: boolean;
   isLoading: boolean;
+  selectedDate = new Date();
+  selectedProject: Project | undefined;
+  user: User = new User();
 
   constructor(
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
     private router: Router,
     private _snackBar: MatSnackBar,
-    private authService: AuthService,
+    private authUserService: AuthUserService,
     private httpService: HttpWrapperService,
     private recordService: RecordService,
-    private loadingService: LoadingService)
-  {
-    this.form = this.fb.group( {
-      operador: [ '' ],
+    private loadingService: LoadingService ) {
+    this.form = this.setForm();
+    this.isLoading = true;
+  }
+
+  private setForm(): UntypedFormGroup {
+    return this.fb.group( {
       fecha: [ '' ],
-      horas: [ '' ],
+      horas: [ '8' ],
       proyecto: [ '' ],
       descripcion: [ '' ]
     } );
-    this.loadingUser = true;
-    this.isLoading = true;
   }
 
   ngOnInit(): void {
     this.loadingService.tryToStartLoading();
 
-    this.authService.userProjects.subscribe( ( response: any) => {
-      this.projects = response;
-      this.isLoading = false;
-      this.loadingService.tryToStopLoading();
-    } );
+    this.user = this.authUserService.getUser();
+    this.projects = this.user.projects;
+    this.selectedProject = this.projects[0];
+    this.isLoading = false;
+    this.loadingService.tryToStopLoading();
   }
 
   disabledButton( form: UntypedFormGroup ): boolean {
@@ -62,45 +63,32 @@ export class HomeComponent implements OnInit {
   }
 
   newData() {
-    const template: Record = {
+    const template: any = {
       date: this.form.value.fecha,
       hours: this.form.value.horas,
       description: this.form.value.descripcion,
-      user: this.authService.user,
+      user: this.user,
       project: this.form.value.proyecto
     }
     this.postData( template );
   }
 
-  postData( template: Record ) {
+  postData( template: any ) {
     if ( !this.form.valid ) {
-      return console.log( "Formulario Invalido" );
+      console.log( "Formulario Invalido" );
+      return;
     }
     let today = moment( template.date ).format( 'DD-MM-YYYY' );
-    const record: Record = {
+    const record: any = {
       date: today,
       hours: template.hours,
       description: template.description,
-      user: template.user,
+      user: this.user,
       project: template.project,
 
     };
-    this.recordService.postRecord( record ).subscribe( response => {
-      //Authorization: `Bearer ${localStorage.getItem('token')}`,
-      console.log( response);
-      const dialogRef = this.dialog.open( ModalGenericComponent, { data: "¿Deseas seguir cargando registros?" } );
-      dialogRef.afterClosed().subscribe( response => {
-        if ( !response ) {
-          this.router.navigate( [ '/resultado' ] );
-        }
-        this.form = this.fb.group( {
-          operador: [ '' ],
-          fecha: [ '' ],
-          horas: [ '' ],
-          proyecto: [ '' ],
-          descripcion: [ '' ]
-        } );
-      } );
+    this.recordService.postRecord( record, this.user.id ).subscribe( response => {
+      this.form = this.setForm();
       this._snackBar.open( 'El dato fue ingresado correctamente', '', {
         duration: 1500,
         horizontalPosition: 'center',

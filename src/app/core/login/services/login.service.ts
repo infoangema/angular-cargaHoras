@@ -4,8 +4,8 @@ import {ResponseLogin} from "../model/responseLogin";
 import {catchError, debounceTime, delay, map, switchMap} from "rxjs/operators";
 import {Observable, of} from "rxjs";
 import {ERROR_CONSTANTS} from 'src/app/core/errors/errors.const';
-import { AuthDto, Authresponse, GlobalResponse } from "../model/userAuthenticated";
-import {AuthService} from "../../auth/auth.service";
+import { Auth, Authresponse, GlobalResponse } from "../model/userAuthenticated";
+import {AuthUserService} from "../../auth/auth-user.service";
 import {API_ENDPOINTS} from "../../routes/api.endpoints";
 import { HttpWrapperService } from "../../request/http-wrapper.service";
 
@@ -16,7 +16,7 @@ export class LoginService {
 
   constructor(
     private httpService: HttpWrapperService,
-    private authService: AuthService,
+    private authService: AuthUserService,
   ) {
   }
 
@@ -44,7 +44,7 @@ export class LoginService {
 
   private getAuthAndToken(res: Authresponse): Object {
     try {
-      const auth: AuthDto = {
+      const auth: Auth = {
         id: res.auth_data.id,
         active: res.auth_data.active,
         username: res.auth_data.username,

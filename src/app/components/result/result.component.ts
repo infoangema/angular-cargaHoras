@@ -2,16 +2,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Record } from "../../interfaces/record";
 import { MatTableDataSource } from "@angular/material/table";
 import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 import { RecordService } from "../../services/record.service";
 import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
-import { User } from "../../interfaces/user";
-import { Project } from "../../interfaces/project";
 import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
+import { AuthUserService } from "../../core/auth/auth-user.service";
+import { GlobalResponse, Project, User, Record } from "../../core/login/model/userAuthenticated";
+import { LoadingService } from "../../core/loading/loading.service";
+import { BehaviorSubject } from "rxjs";
 
 @Component( {
   selector: 'app-resultado',
@@ -23,24 +24,25 @@ export class ResultComponent implements OnInit {
 
   displayedColumns: string[] = [ 'date', 'hours', 'user', 'project', 'description', 'id' ];
   listRecord: Record[] = [];
-  users: User[] = [];
+  //@ts-ignore
+  user: User;
   projects: Project[] = [];
   form: UntypedFormGroup;
   dataSource!: MatTableDataSource<any>;
-  loadingUser: boolean;
-  loadingProject: boolean;
-  loadingRecord: boolean;
   appliedFilter: boolean;
 
   @ViewChild( MatPaginator ) paginator!: MatPaginator;
   @ViewChild( MatSort ) sort!: MatSort;
+  public actualizar: boolean = true;
 
   constructor(
     public dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private fb: UntypedFormBuilder,
-    private recordService: RecordService,
-    private httpService: HttpWrapperService
+    public recordService: RecordService,
+    private httpService: HttpWrapperService,
+    private authService: AuthUserService,
+    private loadingService: LoadingService
   ) {
     this.form = this.fb.group( {
       fechaDesde: null,
@@ -48,35 +50,33 @@ export class ResultComponent implements OnInit {
       operador: null,
       proyecto: null
     } );
-    this.loadingRecord = true;
-    this.loadingUser = true;
-    this.loadingProject = true;
     this.appliedFilter = false;
   }
 
   ngOnInit() {
+    this.loadingService.tryToStopLoading();
     this.loadTable();
+    this.recordService.listRecordObs.subscribe( result => {
+      this.dataSource = new MatTableDataSource( result );
+    })
   }
 
   loadTable(): void {
-    this.httpService.get(API_ENDPOINTS.RESOURCES.USER).subscribe( ( response: any) => {
-      this.users = response.body;
-      this.loadingUser = false;
-    } );
+
+    //@ts-ignore
+    this.user = this.authService.user;
     this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
-      this.projects = response;
-      this.loadingProject = false;
+      this.projects = this.authService.getUser().projects;
     } );
-    this.recordService.getRecods().subscribe( response => {
-      this.listRecord = response;
+    this.recordService.getRecodsByUserId(this.user.id).subscribe( ( response: GlobalResponse) => {
+      this.listRecord = response.body;
       for ( let i = 0; i < this.listRecord.length; i++ ) {
         this.listRecord[i].visible = true;
       }
-      this.listRecord.reverse();
+//      this.listRecord.reverse();
       this.dataSource = new MatTableDataSource( this.listRecord );
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.loadingRecord = false;
     } );
   }
 
@@ -122,13 +122,8 @@ export class ResultComponent implements OnInit {
       this.dataSource = new MatTableDataSource( this.listRecord );
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      this.loadingRecord = false;
       this.appliedFilter = true;
     } );
-  }
-
-  disabledButton(): boolean {
-    return !( this.form.value.fechaDesde || this.form.value.fechaHasta || this.form.value.operador || this.form.value.proyecto );
   }
 
   reset() {

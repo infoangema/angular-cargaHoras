@@ -4,7 +4,7 @@ import {ResponseLogin} from "../model/responseLogin";
 import {catchError, map} from "rxjs/operators";
 import { HttpClient } from '@angular/common/http';
 import { ERROR_CONSTANTS } from "../../errors/errors.const";
-import { AuthService } from "../../auth/auth.service";
+import { AuthUserService } from "../../auth/auth-user.service";
 import { API_ENDPOINTS } from "../../routes/api.endpoints";
 
 
@@ -15,7 +15,7 @@ import { API_ENDPOINTS } from "../../routes/api.endpoints";
 } )
 export class RegisteredService {
   constructor (    private http: HttpClient,
-                   private authService: AuthService,
+                   private authService: AuthUserService,
 
   ){}
 

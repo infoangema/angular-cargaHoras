@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { NgForm, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VALIDATION_MESSAGES } from "../../../consts/validations.const";
-import { AuthService } from "../../../../auth/auth.service";
+import { AuthUserService } from "../../../../auth/auth-user.service";
 
 
 @Component({
@@ -20,7 +20,7 @@ export class RegistrationFormComponent implements OnInit {
 
 
 
-  constructor(private authService: AuthService,
+  constructor(private authService: AuthUserService,
               private fb: UntypedFormBuilder,
               private router: Router,
 

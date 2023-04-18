@@ -1,43 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from "rxjs";
-import { Record } from "../interfaces/record";
+import { HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable, tap } from "rxjs";
 import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
 import { DateAdapter } from "@angular/material/core";
 import { API_ENDPOINTS } from "../core/routes/api.endpoints";
 import { HttpWrapperService } from "../core/request/http-wrapper.service";
+import { GlobalResponse, Record } from "../core/login/model/userAuthenticated";
+import { map, switchMap } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
 
-  private URLRECORD: string = API_ENDPOINTS.RESOURCES.RECORDS;
+  private RECORDS: string = API_ENDPOINTS.RESOURCES.RECORDS;
+  listRecordObs: BehaviorSubject<Record[]> = new BehaviorSubject<Record[]>([]);
 
-  constructor( private httpService: HttpWrapperService, private dateAdapter: DateAdapter<Date>) {
+  constructor( private httpWrapperService: HttpWrapperService, private dateAdapter: DateAdapter<Date>) {
     this.dateAdapter.setLocale('en-GB');
   }
 
-  getRecods(): Observable<any> {
-    return this.httpService.get(this.URLRECORD);
+  getRecodsByUserId(id?: number): Observable<any> {
+    return this.httpWrapperService.get(`${this.RECORDS}/read/by-user-id/${id}`);
   }
 
-  postRecord(record: Record): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.httpService.post(this.URLRECORD, JSON.stringify(record));
+  postRecord(record: Record, idUser?: number): Observable<any> {
+    return this.httpWrapperService.post<GlobalResponse>(`${this.RECORDS}/create/by-user-id/${idUser}`, JSON.stringify(record)).pipe(
+      tap( res => {
+        this.listRecordObs.next(res.body);
+      })
+    );
   }
 
-  deleteRecord(index: number): Observable<any> {
-    return this.httpService.delete(this.URLRECORD + '/' + index);
+  deleteRecord(id: number): Observable<any> {
+    return this.httpWrapperService.delete(`${this.RECORDS}/delete/${id}`);
   }
 
   statistics():Observable<any> {
-    return this.httpService.get(this.URLRECORD + '/statistics');
+    return this.httpWrapperService.get(this.RECORDS + '/statistics');
   }
 
   filter(form: UntypedFormGroup): Observable<any> {
-    let URLFILTER: string = this.URLRECORD + '/filter?';
+    let URLFILTER: string = this.RECORDS + '/filter?';
     const format = 'dd/MM/yyyy';
     const locale = 'en-US';
     if(form.value.fechaDesde != null) {
@@ -66,6 +71,6 @@ export class RecordService {
       URLFILTER += 'project=' + form.value.proyecto.id;
     }
     console.log(URLFILTER);
-    return this.httpService.get(URLFILTER);
+    return this.httpWrapperService.get(URLFILTER);
   }
 }
