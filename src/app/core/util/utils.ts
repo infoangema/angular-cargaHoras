@@ -1,3 +1,4 @@
+import * as moment from "moment/moment";
 
 export class Utils {
 	static isEmpty(obj: any) {
@@ -35,4 +36,8 @@ export class Utils {
 	static isObject(item: any) {
 		return (item && typeof item === 'object' && !Array.isArray(item));
 	}
+
+  static getDateMoment(date: any) {
+    return moment( date ).format( 'DD-MM-YYYY' )
+  }
 }

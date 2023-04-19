@@ -9,6 +9,7 @@ import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { LoadingService } from "../../core/loading/loading.service";
 import { AuthUserService } from "../../core/auth/auth-user.service";
 import { Project, User } from "../../core/login/model/userAuthenticated";
+import { Utils } from "../../core/util/utils";
 
 @Component( {
   selector: 'app-home',
@@ -35,25 +36,24 @@ export class HomeComponent implements OnInit {
     private httpService: HttpWrapperService,
     private recordService: RecordService,
     private loadingService: LoadingService ) {
+    this.user = this.authUserService.getUser();
+    this.projects = this.user.projects;
+    this.selectedProject = this.projects[0];
     this.form = this.setForm();
     this.isLoading = true;
   }
 
   private setForm(): UntypedFormGroup {
     return this.fb.group( {
-      fecha: [ '' ],
+      fecha: [ new Date() ],
       horas: [ '8' ],
-      proyecto: [ '' ],
+      proyecto: [ this.selectedProject ],
       descripcion: [ '' ]
     } );
   }
 
   ngOnInit(): void {
     this.loadingService.tryToStartLoading();
-
-    this.user = this.authUserService.getUser();
-    this.projects = this.user.projects;
-    this.selectedProject = this.projects[0];
     this.isLoading = false;
     this.loadingService.tryToStopLoading();
   }
@@ -78,7 +78,8 @@ export class HomeComponent implements OnInit {
       console.log( "Formulario Invalido" );
       return;
     }
-    let today = moment( template.date ).format( 'DD-MM-YYYY' );
+//    let today = moment( template.date ).format( 'DD-MM-YYYY' );
+    let today = Utils.getDateMoment(template.date);
     const record: any = {
       date: today,
       hours: template.hours,

@@ -23,7 +23,7 @@
                   <h2>Proyecto</h2>
                   <mat-form-field appearance="fill" class="width">
                     <mat-label>Seleccione proyecto trabajado</mat-label>
-                    <mat-select formControlName="proyecto" [(ngModel)]="selectedProject">
+                    <mat-select formControlName="proyecto">
                       <mat-option *ngFor="let project of projects" [value]="project">{{project.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>

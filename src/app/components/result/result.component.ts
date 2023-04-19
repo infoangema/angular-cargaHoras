@@ -8,11 +8,9 @@ import { RecordService } from "../../services/record.service";
 import { ModalDeleteComponent } from "../modal-delete/modal-delete.component";
 import { MatDialog } from "@angular/material/dialog";
 import { HttpWrapperService } from "../../core/request/http-wrapper.service";
-import { API_ENDPOINTS } from "../../core/routes/api.endpoints";
 import { AuthUserService } from "../../core/auth/auth-user.service";
 import { GlobalResponse, Project, User, Record } from "../../core/login/model/userAuthenticated";
 import { LoadingService } from "../../core/loading/loading.service";
-import { BehaviorSubject } from "rxjs";
 
 @Component( {
   selector: 'app-resultado',
@@ -30,10 +28,9 @@ export class ResultComponent implements OnInit {
   form: UntypedFormGroup;
   dataSource!: MatTableDataSource<any>;
   appliedFilter: boolean;
-
+//  public actualizar: boolean = true;
   @ViewChild( MatPaginator ) paginator!: MatPaginator;
   @ViewChild( MatSort ) sort!: MatSort;
-  public actualizar: boolean = true;
 
   constructor(
     public dialog: MatDialog,
@@ -62,18 +59,14 @@ export class ResultComponent implements OnInit {
   }
 
   loadTable(): void {
-
     //@ts-ignore
     this.user = this.authService.user;
-    this.httpService.get(API_ENDPOINTS.RESOURCES.PROYECTOS).subscribe( ( response: any) => {
-      this.projects = this.authService.getUser().projects;
-    } );
+    this.projects = this.authService.getUser().projects;
     this.recordService.getRecodsByUserId(this.user.id).subscribe( ( response: GlobalResponse) => {
       this.listRecord = response.body;
       for ( let i = 0; i < this.listRecord.length; i++ ) {
         this.listRecord[i].visible = true;
       }
-//      this.listRecord.reverse();
       this.dataSource = new MatTableDataSource( this.listRecord );
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -84,7 +77,7 @@ export class ResultComponent implements OnInit {
     const dialogRef = this.dialog.open( ModalDeleteComponent, { data: this.stringDataArray( this.listRecord.find( element => element.id == index )! ) } );
     dialogRef.afterClosed().subscribe( response => {
       if ( response ) {
-        this.recordService.deleteRecord( index ).subscribe( response => {
+        this.recordService.deleteRecord( index, this.user.id ).subscribe( response => {
           console.log( response );
           this.loadTable();
           this._snackBar.open( 'Dato eliminado exitosamente.', '', {

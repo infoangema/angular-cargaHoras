@@ -33,8 +33,8 @@ export class RecordService {
     );
   }
 
-  deleteRecord(id: number): Observable<any> {
-    return this.httpWrapperService.delete(`${this.RECORDS}/delete/${id}`);
+  deleteRecord(recordId: number, userId?: number): Observable<any> {
+    return this.httpWrapperService.delete(`${this.RECORDS}/delete/by-user-id/${userId}/record-id/${recordId}`);
   }
 
   statistics():Observable<any> {
