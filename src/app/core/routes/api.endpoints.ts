@@ -17,5 +17,6 @@ export let API_ENDPOINTS = {
     USER: `${ENV.URL_BASE}/users/read`,
     PROYECTOS: `${ENV.URL_BASE}/projects/read`,
     RECORDS: `${ENV.URL_BASE}/records`,
+    PRINT :`${ENV.URL_BASE}/records/download-pdf-by-user-id`
   }
 };

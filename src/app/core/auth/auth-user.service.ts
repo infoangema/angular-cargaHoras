@@ -46,4 +46,6 @@ export class AuthUserService {
     this.user = this.localStorageService.getItem( 'user' );
     return this.user;
   }
+
+
 }

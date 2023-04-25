@@ -11,6 +11,7 @@ import { HttpWrapperService } from "../../core/request/http-wrapper.service";
 import { AuthUserService } from "../../core/auth/auth-user.service";
 import { GlobalResponse, Project, User, Record } from "../../core/login/model/userAuthenticated";
 import { LoadingService } from "../../core/loading/loading.service";
+import { response } from "express";
 
 @Component( {
   selector: 'app-resultado',
@@ -71,6 +72,9 @@ export class ResultComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     } );
+    this.recordService.getDownloadPdfByUserId(this.user.id).subscribe((response : GlobalResponse)=>{
+     console.log(response.body)
+    })
   }
 
   deleteData( index: number ) {

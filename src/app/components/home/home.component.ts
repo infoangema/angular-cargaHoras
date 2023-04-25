@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
   selectedDate = new Date();
   selectedProject: Project | undefined;
   user: User = new User();
-
   constructor(
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
@@ -34,13 +33,14 @@ export class HomeComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private authUserService: AuthUserService,
     private httpService: HttpWrapperService,
-    private recordService: RecordService,
+    public recordService: RecordService,
     private loadingService: LoadingService ) {
     this.user = this.authUserService.getUser();
     this.projects = this.user.projects;
     this.selectedProject = this.projects[0];
     this.form = this.setForm();
     this.isLoading = true;
+
   }
 
   private setForm(): UntypedFormGroup {
@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
       horas: [ '8' ],
       proyecto: [ this.selectedProject ],
       descripcion: [ '' ]
+
     } );
   }
 
@@ -56,6 +57,8 @@ export class HomeComponent implements OnInit {
     this.loadingService.tryToStartLoading();
     this.isLoading = false;
     this.loadingService.tryToStopLoading();
+    this.recordService.getDownloadPdfByUserId()
+    this.recordService.downloadPDF()
   }
 
   disabledButton( form: UntypedFormGroup ): boolean {
