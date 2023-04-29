@@ -13,7 +13,7 @@ import { SharedModule } from './components/shared/shared.module';
 import { ResultComponent } from './components/result/result.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactComponent } from './components/contact/contact.component';
-import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
+//import { SpinnerCircularModule } from "spinners-angular/spinner-circular";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
@@ -51,7 +51,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     CoreModule,
     FormsModule,
     ReactiveFormsModule,
-    SpinnerCircularModule,
+//    SpinnerCircularModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
