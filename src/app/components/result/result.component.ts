@@ -78,7 +78,6 @@ export class ResultComponent implements OnInit {
     dialogRef.afterClosed().subscribe( response => {
       if ( response ) {
         this.recordService.deleteRecord( index, this.user.id ).subscribe( response => {
-          console.log( response );
           this.loadTable();
           this._snackBar.open( 'Dato eliminado exitosamente.', '', {
             duration: 1500,

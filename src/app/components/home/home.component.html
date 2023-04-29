@@ -41,21 +41,25 @@
                   </mat-form-field>
                 </div>
               </td>
+              <div>
+                <h2>Descripción (Opcional)</h2>
+                <mat-form-field appearance="fill" class="width">
+                  <mat-label>Ingrese una descripcion de la tarea realizada</mat-label>
+                  <textarea matInput formControlName="descripcion" class="widthDescription" maxlength="250"></textarea>
+                </mat-form-field>
+              </div>
 
             </tr>
           </table>
-          <div>
-            <h2>Descripción (Opcional)</h2>
-            <mat-form-field appearance="fill" class="width">
-              <mat-label>Ingrese una descripcion de la tarea realizada</mat-label>
-              <textarea matInput formControlName="descripcion" class="widthDescription" maxlength="250"></textarea>
-            </mat-form-field>
-          </div>
+
           <div class="button">
             <button type="submit" [disabled]="!disabledButton(form)" mat-raised-button color="primary">Aceptar</button>
-            <button mat-raised-button color="basic">Cancelar</button>
+            <button mat-raised-button color="default">Cancelar</button>
           </div>
         </form>
+        <div class="dowload">
+        <button mat-raised-button color="primary" (click)="download()">Descargar PDF</button>
+        </div>
       </div>
     </div>
     <app-resultado></app-resultado>

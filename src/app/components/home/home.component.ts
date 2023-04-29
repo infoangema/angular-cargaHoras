@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
   selectedDate = new Date();
   selectedProject: Project | undefined;
   user: User = new User();
-
   constructor(
     public dialog: MatDialog,
     private fb: UntypedFormBuilder,
@@ -41,6 +40,7 @@ export class HomeComponent implements OnInit {
     this.selectedProject = this.projects[0];
     this.form = this.setForm();
     this.isLoading = true;
+
   }
 
   private setForm(): UntypedFormGroup {
@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
       horas: [ '8' ],
       proyecto: [ this.selectedProject ],
       descripcion: [ '' ]
+
     } );
   }
 
@@ -95,6 +96,18 @@ export class HomeComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       } );
-    } );
+    }/*, error => {
+      this._snackBar.open( "Erorr: " + error.message, '', {
+        duration: 5500,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      } );
+    }*/ );
   }
+
+  public download(): void {
+    //@ts-ignore
+    this.recordService.downloadPDF(this.user.id);
+  }
+
 }

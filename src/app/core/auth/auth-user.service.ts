@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../storage/local-storage.service';
 import { Auth, Company, Project, User } from "../login/model/userAuthenticated";
 import { NgxPermissionsService } from 'ngx-permissions';
+import { Router } from "@angular/router";
+import { INTERNAL_ROUTES } from "../routes/internal.routes";
+import { LoadingService } from "../loading/loading.service";
 
 
 @Injectable( {
@@ -17,6 +20,8 @@ export class AuthUserService {
   constructor(
     private permissionsService: NgxPermissionsService,
     private localStorageService: LocalStorageService,
+    private router: Router,
+    private loadingService: LoadingService
   ) {}
 
   public setToken( token: string ): void {
@@ -45,5 +50,13 @@ export class AuthUserService {
     //@ts-ignore
     this.user = this.localStorageService.getItem( 'user' );
     return this.user;
+  }
+
+  public logout(): void {
+    this.localStorageService.clear();
+    this.permissionsService.flushPermissions();
+    // redirect to login
+    this.loadingService.tryToStopLoading();
+    this.router.navigate( [ INTERNAL_ROUTES.AUTH_LOGIN ] );
   }
 }
