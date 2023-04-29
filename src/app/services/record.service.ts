@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from "rxjs";
 import { UntypedFormGroup } from "@angular/forms";
 import { formatDate } from "@angular/common";
@@ -7,9 +6,8 @@ import { DateAdapter } from "@angular/material/core";
 import { API_ENDPOINTS } from "../core/routes/api.endpoints";
 import { HttpWrapperService } from "../core/request/http-wrapper.service";
 import { GlobalResponse, Record } from "../core/login/model/userAuthenticated";
-import { map, switchMap } from "rxjs/operators";
-import { json, response } from "express";
 import { HttpClient } from '@angular/common/http';
+import { HttpClientOptions } from "../core/request/http.service";
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +21,8 @@ export class RecordService {
     this.dateAdapter.setLocale('en-GB');
   }
 
-  getRecodsByUserId(id?: number): Observable<any> {
-    return this.httpWrapperService.get(`${this.RECORDS}/read/by-user-id/${id}`);
+  getRecordsByUserId(id?: number): Observable<any> {
+    return this.httpWrapperService.get(`${this.RECORDS}/read/${id}/find-records-for-current-user`);
   }
 
   postRecord(record: Record, idUser?: number): Observable<any> {
@@ -75,17 +73,11 @@ export class RecordService {
     console.log(URLFILTER);
     return this.httpWrapperService.get(URLFILTER);
   }
-  //mostrar PDF a descargar
-  public getDownloadPdfByUserId(id?: number): Observable<any> {
-    console.log(JSON.stringify(this.PRINT))
-    return this.httpWrapperService.get(`${this.PRINT}/${id}`);
-
-  }
 
   //descargar PDF
   public downloadPDF(id?:number) {
-    this.http.get(`${this.PRINT}/${id}`, { responseType: 'blob' })
-      .subscribe((response: any) => {
+    let option: HttpClientOptions = { responseType: 'blob'}
+    this.httpWrapperService.get(`${this.PRINT}/${id}`, option).subscribe((response: any) => {
         const blob = new Blob([response], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         window.open(url);

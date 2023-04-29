@@ -63,18 +63,15 @@ export class ResultComponent implements OnInit {
     //@ts-ignore
     this.user = this.authService.user;
     this.projects = this.authService.getUser().projects;
-    this.recordService.getRecodsByUserId(this.user.id).subscribe( ( response: GlobalResponse) => {
-      this.listRecord = response.body;
+    this.recordService.getRecordsByUserId(this.user.id).subscribe( ( response: GlobalResponse) => {
+    this.listRecord = response.body;
       for ( let i = 0; i < this.listRecord.length; i++ ) {
         this.listRecord[i].visible = true;
       }
-      this.dataSource = new MatTableDataSource( this.listRecord );
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    } );
-    this.recordService.getDownloadPdfByUserId(this.user.id).subscribe((response : GlobalResponse)=>{
-     console.log(response.body)
-    })
+    this.dataSource = new MatTableDataSource( this.listRecord );
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+     } );
   }
 
   deleteData( index: number ) {

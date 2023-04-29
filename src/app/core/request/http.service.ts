@@ -17,7 +17,7 @@ export interface HttpClientOptions {
     bodyType?: 'json' | 'formData', // Default json
     retry?: number; // Default 0
   };
-  responseType?: 'json' | 'text'; // Default 'json'
+  responseType?: 'json' | 'text' | 'blob'; // Default 'json'
 }
 
 @Injectable()

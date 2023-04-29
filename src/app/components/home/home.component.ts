@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private authUserService: AuthUserService,
     private httpService: HttpWrapperService,
-    public recordService: RecordService,
+    private recordService: RecordService,
     private loadingService: LoadingService ) {
     this.user = this.authUserService.getUser();
     this.projects = this.user.projects;
@@ -57,8 +57,6 @@ export class HomeComponent implements OnInit {
     this.loadingService.tryToStartLoading();
     this.isLoading = false;
     this.loadingService.tryToStopLoading();
-    this.recordService.getDownloadPdfByUserId()
-    this.recordService.downloadPDF()
   }
 
   disabledButton( form: UntypedFormGroup ): boolean {
@@ -98,6 +96,18 @@ export class HomeComponent implements OnInit {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       } );
+    }, error => {
+      this._snackBar.open( "Erorr: " + error.message, '', {
+        duration: 5500,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      } );
     } );
   }
+
+  public download(): void {
+    //@ts-ignore
+    this.recordService.downloadPDF(this.user.id);
+  }
+
 }
