@@ -1,0 +1,8 @@
+{
+  "/": {
+    "target": "http://200.114.219.199",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
