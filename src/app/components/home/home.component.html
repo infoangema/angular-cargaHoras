@@ -57,8 +57,13 @@
             <button mat-raised-button color="default">Cancelar</button>
           </div>
         </form>
-        <div class="dowload">
-        <button mat-raised-button color="primary" (click)="download()">Descargar PDF</button>
+        <div class="container isFlex isCenter">
+          <div class="dowload button">
+            <button mat-raised-button color="primary" (click)="download('current')">Descargar PDF mes actual</button>
+          </div>
+          <div class="dowload button">
+            <button mat-raised-button color="primary" (click)="download('previous')">Descargar PDF mes actual</button>
+          </div>
         </div>
       </div>
     </div>

@@ -105,9 +105,9 @@ export class HomeComponent implements OnInit {
     }*/ );
   }
 
-  public download(): void {
+  public download( selection: string ): void {
     //@ts-ignore
-    this.recordService.downloadPDF(this.user.id);
+    this.recordService.downloadPDF(this.user.id, selection);
   }
 
 }

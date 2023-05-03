@@ -81,10 +81,10 @@ export class RecordService {
   }
 
   //descargar PDF
-  public downloadPDF(id?:number) {
+  public downloadPDF(id:number, selection: string) {
     //@ts-ignore
     let option: HttpClientOptions = { responseType: 'blob'}
-    this.httpWrapperService.get(`${this.DOWNLOAD_PDF}/${id}`, option).subscribe((response: any) => {
+    this.httpWrapperService.get(`${this.DOWNLOAD_PDF}/${id}/${selection}`, option).subscribe((response: any) => {
         const blob = new Blob([response], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         window.open(url);
