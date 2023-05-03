@@ -27,6 +27,7 @@ import { LoginModule } from "./core/login/login.module";
 import { AuthGuard } from "./core/auth/auth.guard";
 import { BlockUIModule } from 'ng-block-ui';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 
 @NgModule( {
   declarations: [
@@ -61,7 +62,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
       delayStop: 500
     } )
   ],
-  providers: [ AuthGuard ],
+  providers: [ AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   bootstrap: [ AppComponent ]
 } )
 
