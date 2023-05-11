@@ -45,3 +45,4 @@ testem.log
 Thumbs.db
 /dist
 /package-lock.json
+/.doc/doc.md
