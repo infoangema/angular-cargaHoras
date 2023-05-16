@@ -16,6 +16,7 @@ export class AuthUserService {
   public user: User = new User();
   public userProjects: Project[] = [];
   public userCompany: Company = new Company();
+  public userRoles: string[] = [];
 
   constructor(
     private permissionsService: NgxPermissionsService,
@@ -30,7 +31,7 @@ export class AuthUserService {
 
   public setAuth( auth: Auth ): void {
     this.localStorageService.setItem( 'auth', auth );
-    let roles: string[] = auth.roles.map( rol => rol.descripcion);
+    let roles: string[] = auth.roles.map( rol => rol.description);
     this.permissionsService.loadPermissions(roles);
   }
 

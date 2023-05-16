@@ -5,6 +5,7 @@ import { ResultComponent } from './components/result/result.component';
 import { ContactComponent } from "./components/contact/contact.component";
 import { StatisticsComponent } from "./components/statistics/statistics.component";
 import { AuthGuard } from "./core/auth/auth.guard";
+import {AdministrationComponent} from "./components/administration/administration.component";
 
 const APP_ROUTES: Routes = [
 
@@ -17,6 +18,7 @@ const APP_ROUTES: Routes = [
   { path: 'contacto', component: ContactComponent, canActivate: [AuthGuard]},
   { path: 'resultado', component: ResultComponent, canActivate: [AuthGuard]},
   { path: 'estadistica', component: StatisticsComponent, canActivate: [AuthGuard]},
+  { path: 'administracion', component: AdministrationComponent, canActivate: [AuthGuard]},
 
   { path: '**', pathMatch: 'full', redirectTo: 'auth/login'},
 

@@ -25,7 +25,7 @@ export class Auth {
 
 export class Role {
   id: number | undefined = undefined;
-  descripcion: string = '';
+  description: string = '';
 }
 
 export class User {

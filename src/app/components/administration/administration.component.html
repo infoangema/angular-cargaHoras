@@ -1,0 +1,129 @@
+<div>
+  <div class="container">
+    <div class="table">
+      <mat-toolbar class="rounding">
+        <span>Registros de Horas</span>
+      </mat-toolbar>
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef> Nombre</th>
+            <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="projectName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Proyecto</th>
+            <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="hours">
+            <th mat-header-cell *matHeaderCellDef> Hs trabajadas</th>
+            <td mat-cell *matCellDef="let element"> {{element.hours}} </td>
+          </ng-container>
+
+          <!--          <ng-container matColumnDef="price">
+                      <th mat-header-cell *matHeaderCellDef>Valor Hr</th>
+                      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                    </ng-container>-->
+
+          <ng-container matColumnDef="useTelegram">
+            <th mat-header-cell *matHeaderCellDef>Usar telegram</th>
+            <td mat-cell *matCellDef="let element">
+              <mat-slide-toggle [id]="element.userId" color="primary" [checked]="element.useTelegram"
+                                (change)="changeSlide($event)"></mat-slide-toggle>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="incomeFiles">
+            <th mat-header-cell *matHeaderCellDef>haberes</th>
+            <td mat-cell *matCellDef="let element">
+              <a class="icon p-1" matTooltip="Subir haberes"
+                 (click)="showModalUploadFile('haberes', element.userId, element.projectId, element.companyId)">
+                <mat-icon>cloud_upload</mat-icon>
+              </a>
+              <a class="icon" matTooltip="Descargar haberes">
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="hoursDetail">
+            <th mat-header-cell *matHeaderCellDef>Detalle de horas</th>
+            <td mat-cell *matCellDef="let element">
+              <a class="icon" matTooltip="Descargar detalle de horas">
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="billFiles">
+            <th mat-header-cell *matHeaderCellDef>facturas</th>
+            <td mat-cell *matCellDef="let element">
+              <a class="icon p-1" matTooltip="Subir factura"
+                 (click)="showModalUploadFile('facturas',element.userId,element.projectId,element.companyId)">
+                <mat-icon>cloud_upload</mat-icon>
+              </a>
+              <a class="icon" matTooltip="Descargar factura">
+                <mat-icon>cloud_download</mat-icon>
+              </a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalHours">
+            <th mat-header-cell *matHeaderCellDef>Horas completas</th>
+            <td class="p-2" mat-cell *matCellDef="let element">
+              <button mat-fab aria-label="Example icon button with a delete icon"
+                      [disabled]="!element.completedHours">
+                <mat-icon>check</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="billStatus">
+            <th mat-header-cell *matHeaderCellDef>Factura cargada</th>
+            <td class="p-2" mat-cell *matCellDef="let element">
+              <button mat-fab disabled aria-label="Example icon button with a delete icon"
+                      [disabled]="!element.uploadActualBillFile">
+                <mat-icon>check</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Enviar Factura</th>
+
+            <td class="p-2" mat-cell *matCellDef="let element">
+<!--              <p>{{!element.completedHours}}</p>-->
+<!--              <p>{{!element.uploadActualBillFile}}</p>-->
+<!--              <p>{{!element.completedHours && !element.uploadActualBillFile}}</p>-->
+              <button mat-fab disabled aria-label="Example icon button with a delete icon"
+                      [disabled]="!(element.completedHours && element.uploadActualBillFile)" (click)="sendEmail(element.userId, element.projectId)">
+                <mat-icon>send</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <!--          <ng-container matColumnDef="id">-->
+          <!--            <th mat-header-cell *matHeaderCellDef> Telegram </th>-->
+          <!--            <td mat-cell *matCellDef="let element">-->
+          <!--              <a class="icon" (click)="deleteData(element.id)" matTooltip="Eliminar Usuario">-->
+          <!--                <mat-icon>delete</mat-icon>-->
+          <!--              </a>-->
+          <!--            </td>-->
+          <!--          </ng-container>-->
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [length]="50" [pageSize]="50" [pageSizeOptions]="[10, 20, 50]"
+                       showFirstLastButtons></mat-paginator>
+      </div>
+
+    </div>
+
+    <!--    <h2 *ngIf="listRecord.length == 0" class="nullData">No hay registros cargados.</h2>-->
+
+  </div>
+
+</div>

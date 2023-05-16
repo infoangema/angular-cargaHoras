@@ -12,7 +12,7 @@ export class HttpWrapperService {
   ) { }
 
   public get<T>(resource: string, options?: HttpClientOptions): Observable<T> {
-    return this.httpService.get(resource, this.setOptions(options));
+    return this.httpService.get<T>(resource, this.setOptions(options));
   }
 
   public post<T>(resource: string, _data?: any, options?:any): Observable<T> {

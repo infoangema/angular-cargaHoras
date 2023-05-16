@@ -26,6 +26,11 @@ body {
     border-color: #673ab7 !important;
 }
 
+.mat-button.mat-primary {
+  color: white;
+  background-color: #673ab7;
+}
+
 .container {
   width: 100%;
 }

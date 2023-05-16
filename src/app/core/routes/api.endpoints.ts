@@ -21,5 +21,11 @@ export let API_ENDPOINTS = {
     GET_RECORDS_BY_ID: `${ENV.URL_BASE}/records/read`,
     DELETE_RECORDS_BY_ID: `${ENV.URL_BASE}/records`,
     CREATE_RECORDS_BY_ID: `${ENV.URL_BASE}/records/create/by-user-id`,
+    ADMINISTRATION_READ: `${ENV.URL_BASE}/administration/read`,
+    ADMINISTRATION_SET_ACTIVE_TELEGRAM: `${ENV.URL_BASE}/administration/user-id/`,
+    ADMINISTRATION_UPLOAD_FILE: `${ENV.URL_BASE}/administration/upload-file/`,
+    ADMINISTRATION_SEND_EMAIL: `${ENV.URL_BASE}/records/send-email-by/`
+
+
   }
 };

@@ -103,7 +103,7 @@ export class HttpService {
           }
           if ( err.status === 500 ) {
             this.showMsg('Error de servidor, intente nuevamente');
-            throw new Error( err.error.error );
+            throw new Error( err.error.body.error );
           } else {
             if ( err.message ) {
               this.showMsg(err.error.error);

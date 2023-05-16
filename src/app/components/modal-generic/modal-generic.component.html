@@ -1,7 +1,18 @@
 <div class="conteiner">
-  <div class="text" mat-dialog-content>{{this.message}}</div>
+
+  <h1 mat-dialog-title>{{data.title}}</h1>
+
+  <div class="icon">
+    <mat-icon [svgIcon]="data.icon"></mat-icon>
+    <div class="text" mat-dialog-content>{{data.message}}</div>
+  </div>
+  <div class="inputFile">
+    <input type="file" (change)="fileChange($event)">
+  </div>
   <div mat-dialog-actions>
-    <button class="buttonAccept" mat-button [mat-dialog-close]="true">Aceptar</button>
+    <button class="buttonAccept" mat-button [mat-dialog-close]="true" (click)="emitfile()">Aceptar</button>
     <button class="buttonCancel" mat-button (click)="onClose()">Cancelar</button>
   </div>
+
+
 </div>

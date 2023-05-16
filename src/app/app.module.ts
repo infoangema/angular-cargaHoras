@@ -28,6 +28,8 @@ import { AuthGuard } from "./core/auth/auth.guard";
 import { BlockUIModule } from 'ng-block-ui';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
+import { AdministrationComponent } from './components/administration/administration.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule( {
   declarations: [
@@ -42,6 +44,7 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     StatisticsComponent,
     ModalLoginComponent,
     SafePipe,
+    AdministrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +61,10 @@ import {HashLocationStrategy, LocationStrategy} from "@angular/common";
     AppRoutingModule,
     LoginModule,
     NgxPermissionsModule.forRoot(),
-    BlockUIModule.forRoot( {
+    BlockUIModule.forRoot({
       delayStop: 500
-    } )
+    }),
+    MatSlideToggleModule
   ],
   providers: [ AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   bootstrap: [ AppComponent ]

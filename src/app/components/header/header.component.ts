@@ -13,5 +13,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     const permissions = this.permissionsService.getPermissions();
+    console.log(permissions);
   }
 }
