@@ -66,6 +66,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     }),
     MatSlideToggleModule
   ],
+  exports: [
+    BlockUIModule
+  ],
   providers: [ AuthGuard, { provide: LocationStrategy, useClass: HashLocationStrategy } ],
   bootstrap: [ AppComponent ]
 } )
