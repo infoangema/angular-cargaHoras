@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration=production",
+    "build": "ng build --configuration production",
+    "build-desa": "ng build --configuration desa",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -44,9 +45,5 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0"
-  },
-  "engines": {
-    "node": "14.21.3",
-    "npm": "6.14.12"
   }
 }

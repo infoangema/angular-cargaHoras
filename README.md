@@ -1,31 +1,142 @@
-# App
+# Documentacion proyecto: wallas-tiendaticket-frontend
 
-Version: 0.0.3
+## Indice:
+### 1. comandos basicos docker.
 
-# Horas
+### 1. comandos basicos docker.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+#### download nginx image
+```
+$ docker pull nginx:alpine
+```
 
-## Development server
+#### crear contenedor con nginx
+```
+$ docker run -d -p 80:80 nginx:alpine
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### ver contenedores activos
+```
+$ docker ps -a
+```
 
-## Code scaffolding
+#### detener contenedores
+```
+$ docker stop ID
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### eliminar contenedores
+```
+$ docker rm -f nginx
+```
 
-## Build
+#### eliminar contenedor por id
+```
+$ docker rm -f 2a3d02d4c724b0872be912a70215bf4c86fae329745718480361983ad9a9802f
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+#### eliminar todos los contenedores
+```
+$ docker rm -f $(docker ps -aq)
+```
 
-## Running unit tests
+#### construir imagen
+```
+$ docker build -t angular-carga-horas:v.1.0.0.0 --build-arg configuration="production" .
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+#### correr proyecto
+```
+$ docker run -p 8081:80 -d angular-carga-horas:v.1.0.0.0
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```
+ng new docker-angular
+ng build --prod
+```
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+docker run -d -p 8080:80 -v $(pwd)/dist/wallas-tiendaticket-frontend:/usr/share/nginx/html nginx:alpine
+docker run -d -p 8080:80 -v "D:\gerrdevs\devs\angular\wallas\wallas-frontend\dist\wallas-tiendaticket-frontend:/usr/share/nginx/html" nginx:alpine
+```
+
+Dockerfile v1
+```
+# Stage 0, based on Node.js, to build and compile Angular
+FROM node:latest as node
+WORKDIR /app
+COPY ./ /app/
+RUN npm install
+RUN npm run build -- --prod
+
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:alpine
+COPY --from=node /app/dist/docker-angular /usr/share/nginx/html
+```
+
+```
+docker build .
+docker build . -t docker-angular:latest
+```
+
+```
+docker run -d -p 8080:80 docker-angular:latest
+docker run -d -p 80:80 docker-angular:latest
+```
+
+```
+ng build --prod --configuration=staging
+```
+
+```
+# Stage 0, based on Node.js, to build and compile Angular
+FROM node:latest as node
+WORKDIR /app
+COPY ./ /app/
+RUN npm install
+ARG configuration=production
+RUN npm run build -- --prod --configuration=$configuration
+
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:alpine
+COPY --from=node /app/dist/docker-angular /usr/share/nginx/html
+```
+
+```
+docker build -t docker-angular:latest --build-arg configuration="staging" .
+docker run -d -p 80:80 docker-angular:latest
+```
+
+```
+nginx-custom.conf
+server {
+  listen 80;
+  location / {
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html =404;
+  }
+}
+```
+
+```
+# Stage 0, based on Node.js, to build and compile Angular
+FROM node:latest as node
+WORKDIR /app
+COPY ./ /app/
+RUN npm install
+ARG configuration=production
+RUN npm run build -- --prod --configuration=$configuration
+
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:alpine
+COPY --from=node /app/dist/docker-angular /usr/share/nginx/html
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
+```
+
+```
+docker build -t docker-angular:latest --build-arg configuration="staging" .
+docker run -d -p 80:80 docker-angular:latest
+```
