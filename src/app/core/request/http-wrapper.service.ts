@@ -15,17 +15,16 @@ export class HttpWrapperService {
     return this.httpService.get<T>(resource, this.setOptions(options));
   }
 
-  public post<T>(resource: string, _data?: any, options?:any): Observable<T> {
-    const info = {
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        'responseType': 'json',
-        'observe': 'response',
-        'Authorization': `${this.localStorageService.getItem('token')}`,
-      },
-      body: _data || ''
+  public post<T>(resource: string, _data?: any, options?:HttpClientOptions): Observable<T> {
+    // @ts-ignore
+    options.body = _data || '';
+    // @ts-ignore
+    options.headers = options.headers ?  options.headers : {
+      'Content-Type': 'application/json; charset=utf-8',
+      'responseType': 'json',
+      'observe': 'response',
     };
-    return this.httpService.post(resource, info);
+    return this.httpService.post(resource, this.setOptions(options));
   }
 
   public put<T>(resource: string, options?: HttpClientOptions): Observable<T> {

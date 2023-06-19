@@ -39,10 +39,11 @@
             <th mat-header-cell *matHeaderCellDef>haberes</th>
             <td mat-cell *matCellDef="let element">
               <a class="icon p-1" matTooltip="Subir haberes"
-                 (click)="showModalUploadFile('haberes', element.userId, element.projectId, element.companyId)">
+                 (click)="uploadFileHaber(element.userId)">
                 <mat-icon>cloud_upload</mat-icon>
               </a>
-              <a class="icon" matTooltip="Descargar haberes">
+              <a class="icon" matTooltip="Descargar haberes"
+                 (click)="downloadFileHaber(element.userId)">
                 <mat-icon>cloud_download</mat-icon>
               </a>
             </td>

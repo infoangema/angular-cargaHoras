@@ -3,10 +3,23 @@
   <h1 mat-dialog-title>{{data.title}}</h1>
 
   <div class="icon">
-    <mat-icon [svgIcon]="data.icon"></mat-icon>
+    <mat-icon>{{data.icon ? data.icon : 'home'}}</mat-icon>
     <div class="text" mat-dialog-content>{{data.message}}</div>
   </div>
-  <div class="inputFile">
+  <div class="calendar">
+    <mat-form-field>
+      <mat-label>Mes y año</mat-label>
+      <input matInput [matDatepicker]="dp" [formControl]="date">
+      <mat-hint>MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp
+                      startView="multi-year"
+                      (monthSelected)="setMonthAndYear($event, dp)"
+                      panelClass="example-month-picker">
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="inputFile" *ngIf="data.showInputFile">
     <input type="file" (change)="fileChange($event)">
   </div>
   <div mat-dialog-actions>

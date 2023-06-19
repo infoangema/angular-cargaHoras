@@ -24,6 +24,7 @@ export let API_ENDPOINTS = {
     ADMINISTRATION_READ: `${ENV.URL_BASE}/administration/read`,
     ADMINISTRATION_SET_ACTIVE_TELEGRAM: `${ENV.URL_BASE}/administration/user-id/`,
     ADMINISTRATION_UPLOAD_FILE: `${ENV.URL_BASE}/administration/upload-file/`,
+    ADMINISTRATION_DOWNLOAD_FILE: `${ENV.URL_BASE}/administration/download-file/`,
     ADMINISTRATION_SEND_EMAIL: `${ENV.URL_BASE}/records/send-email-by/`
 
 

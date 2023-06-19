@@ -156,7 +156,6 @@ export class HttpService {
       }
     }
     optionsMerged.responseType = options.responseType;
-
     return {
       optionsMerged,
       config: options.config
